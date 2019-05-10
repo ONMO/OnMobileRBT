@@ -36,7 +36,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-pod 'OnMobileRBT', '~> 2.0.1'
+pod 'OnMobileRBTSDK', '~> 2.0.1'
 end
 ```
 
