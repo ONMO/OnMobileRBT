@@ -7,7 +7,12 @@
 - [SDK Integration Steps](#sdk-integration-steps)
   - [CocoaPods](#cocoapods)
   - [Update Project Settings](#update-project-settings)
-  - [Initialize and Run OnMobile RBT SDK](#initialize-and-run-vodafone-callertunes-sdk)
+  - [Import OnMobile RBT SDK](#import-onmobile-rbt-sdk)
+  - [Initialize OnMobile RBT SDK](#initialize-onmobile-rbt-sdk)
+  - [Supported methods](#supported-methods)
+    - [Launch the SDK UI](#1-launch-the-sdk-ui)
+    - [Fetch the Content List or launch the content list view](#2-fetch-the-content-list-or-launch-the-content-list-view)
+    - [Launch the Preview UI](#3-launch-the-preview-ui)
 - [Copyright](#copyright)
 
 ## Introduction
@@ -58,16 +63,83 @@ $ pod install
 
 ![Step2](https://github.com/ONMO/VodafoneCallerTunes/blob/master/Add%20following%20Properties%20in%20Custom%20iOS%20Target%20Properties%20list.png)
 
-  ### Initialize and Run OnMobile RBT SDK
+  ### Import OnMobile RBT SDK
+  
+  ```swift
+import OnMobileRBTSDK
+```
 
-  Use the following code to initialize and to run the OnMobile RBT SDK by passing the valid `MSISDN` number and valid `Key`
+  ### Initialize OnMobile RBT SDK
+
+  Use the following code to initialize by passing the valid `MSISDN` number and valid `Key` and to call the methods please do save the response object received in `completedSuccessfully` block
 
 ```swift
-import OnMobileRBTSDK
-
-OnMobileRBTConnector.initialize(withAuthenticationKey: <key>, forPhoneNumber: <phoneNumber>, controller: self, animated: true)
+OnMobileRBTConnector.initialize(withAuthenticationKey: <key>, forPhoneNumber: <phoneNumber>, completedSuccessfully: { (OnMobileRBTConnectorResponse) in
+            //Save the OnMobileRBTConnectorResponse to use it for futher calls
+        }, failed: { (OnMobileRBTConnectorError) in
+            //Handle error
+        })
 ```
+
+  ### Supported methods
+
+  #### 1. Launch the SDK UI
+  
+  ##### Summary
+  Launches the SDK UI
+  
+  ##### Declaration
+ ```swift
+ public func launchSDK(on controller: UIViewController, animated: Bool, success: (() -> ())? = nil, failed fail: ((OnMobileRBTConnectorError) -> ())? = nil)
+ ```
+ 
+ ##### Parameters
+ ```
+ controller	: self
+ animated	: true/false
+ success	: Returns success block - default is nil
+ fail	: Returns OnMobileRBTConnectorError type
+ ```
+
+ #### 2. Fetch the Content List or launch the content list view
+ 
+ ##### Summary
+ Fetches the list of contents or launches the content list view if `isShowAll` is `true`
+  
+ ##### Declaration
+ ```swift
+ public func contentList(forContentId contentId: String, withShowAll isShowAll: Bool, controller: UIViewController? = nil, animated: Bool? = false, completedSuccessfully success: (([OnMobileRBTTrackItem]) -> ())? = nil, failed fail: ((OnMobileRBTConnectorError) -> ())? = nil)
+ ```
+ 
+ ##### Parameters
+ ```
+ contentId  : Provide the appropriate content name to fetch the data
+ isShowAll  : Provide true to show all contents, false to show limited content
+ controller : Provide self is isShowAll is true & for false default value is nil
+ animated : true/false
+ success  : Returns list of OnMobileRBTTrackItem items
+ fail : Returns OnMobileRBTConnectorError type
+ ```
+
+ #### 3. Launch the Preview UI
+  
+ ##### Summary
+Launches the preview view for the provided `OnMobileRBTTrackItem`
+  
+ ##### Declaration
+ ```swift
+ public func showPreview(for item: OnMobileRBTTrackItem, controller: UIViewController, animated: Bool, success: (() -> ())? = nil, failed fail: ((OnMobileRBTConnectorError) -> ())? = nil)
+ ```
+ 
+ ##### Parameters
+ ```
+  item	: Provide the OnMobileRBTTrackItem
+  controller	: self
+  animated	: true/false
+  success	: Returns success block - default is nil
+  fail	: Returns OnMobileRBTConnectorError type
+ ```
 
 ## Copyright
 
-### ©2018 OnMobile Global Limited All Rights Reserved.
+### ©2020 OnMobile Global Limited All Rights Reserved.
