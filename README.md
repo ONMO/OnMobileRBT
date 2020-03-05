@@ -146,11 +146,9 @@ Launches the preview view for the provided `OnMobileRBTTrackItem` on provided `c
  ```
  
  ##### Parameters
- ```
-controller: Provide the controller, on which the preview to be launched
-onMobileRBTTrackItem: Provide the item detail for which the preview required
-animated: `true / false`
- ```
+`controller`: Provide the controller, on which the preview to be launched
+`onMobileRBTTrackItem`: Provide the item detail for which the preview required
+`animated`: `true / false`
 
 ## Copyright
 
