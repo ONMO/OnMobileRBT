@@ -10,9 +10,10 @@
   - [Import OnMobile RBT SDK](#import-onmobile-rbt-sdk)
   - [Initialize OnMobile RBT SDK](#initialize-onmobile-rbt-sdk)
   - [Supported methods](#supported-methods)
-    - [Launch the SDK UI](#1-launch-the-sdk-ui)
-    - [Fetch the Content List or launch the content list view](#2-fetch-the-content-list-or-launch-the-content-list-view)
-    - [Launch the Preview UI](#3-launch-the-preview-ui)
+    - [Launch the `OnMobileRBTSDK` app](#1-launch-the-onmobilerbtsdk-app)
+    - [Provides the list of `OnMobileRBTTrackItem` items](#2-provides-the-list-of-onmobilerbttrackitem-items)
+    - [Launches the content view for the provide content](#3-launches-the-content-view-for-the-provide-content)
+    - [Launch preview view for specific `OnMobileRBTTrackItem` item](#4-launch-preview-view-for-specific-onmobilerbttrackitem-item)
 - [Copyright](#copyright)
 
 ## Introduction
@@ -41,7 +42,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-pod 'OnMobileRBTSDK', '~> 2.1.0'
+pod 'OnMobileRBTSDK', '~> 2.1.1'
 end
 ```
 
@@ -74,70 +75,81 @@ import OnMobileRBTSDK
   Use the following code to initialize by passing the valid `MSISDN` number and valid `Key` and to call the methods please do save the response object received in `completedSuccessfully` block
 
 ```swift
-OnMobileRBTConnector.initialize(withAuthenticationKey: <key>, forPhoneNumber: <phoneNumber>, completedSuccessfully: { (OnMobileRBTConnectorResponse) in
-            //Save the OnMobileRBTConnectorResponse to use it for futher calls
-        }, failed: { (OnMobileRBTConnectorError) in
-            //Handle error
-        })
+OnMobileRBTConnector.initialize(withAuthenticationKey: key, forPhoneNumber: number, controller: self) { response in
+            //Save the OnMobileRBTConnectorResponse to use it for futher calls (shared instance preffered)
+            //Ex: onMobileRBTConnectorResponse = response --> Use this for the below supported methods
+        }
 ```
 
   ### Supported methods
 
-  #### 1. Launch the SDK UI
+  #### 1. Launch the `OnMobileRBTSDK` app
   
   ##### Summary
-  Launches the SDK UI
+  Launches the `OnMobileRBTSDK` app
   
   ##### Declaration
  ```swift
- public func launchSDK(on controller: UIViewController, animated: Bool, success: (() -> ())? = nil, failed fail: ((OnMobileRBTConnectorError) -> ())? = nil)
+ onMobileRBTConnectorResponse?.launch(on: self, animated: true)
  ```
  
  ##### Parameters
  ```
- controller	: self
- animated	: true/false
- success	: Returns success block - default is nil
- fail	: Returns OnMobileRBTConnectorError type
+controller: Provide the controller, on which the `OnMobileRBTSDK` app to be launched
+animated: `true / false`
  ```
 
- #### 2. Fetch the Content List or launch the content list view
+ #### 2. Provides the list of `OnMobileRBTTrackItem` items 
  
  ##### Summary
- Fetches the list of contents or launches the content list view if `isShowAll` is `true`
+ Provides the list of `OnMobileRBTTrackItem` items for the provide `content`
   
  ##### Declaration
  ```swift
- public func contentList(forContentId contentId: String, withShowAll isShowAll: Bool, controller: UIViewController? = nil, animated: Bool? = false, completedSuccessfully success: (([OnMobileRBTTrackItem]) -> ())? = nil, failed fail: ((OnMobileRBTConnectorError) -> ())? = nil)
+ onMobileRBTConnectorResponse?.fetchContent(on: self, for: <Content ID/Name>, onMobileRBTTrackItems: { (items) in
+            //Save (or) use the items
+        })
  ```
  
  ##### Parameters
  ```
- contentId  : Provide the appropriate content name to fetch the data
- isShowAll  : Provide true to show all contents, false to show limited content
- controller : Provide self is isShowAll is true & for false default value is nil
- animated : true/false
- success  : Returns list of OnMobileRBTTrackItem items
- fail : Returns OnMobileRBTConnectorError type
+controller: Provide the controller, on which the list of content details required, default acceptable value is `self`
+contentId: Provide the content detail for which the all the contents are required
+items: Retuns the list of `OnMobileRBTTrackItem` items
  ```
-
- #### 3. Launch the Preview UI
-  
+ 
+ #### 3. Launches the content view for the provide content 
+ 
  ##### Summary
-Launches the preview view for the provided `OnMobileRBTTrackItem`
+Launches the content view for the provide `content` with all the contents on provided `controller`
   
  ##### Declaration
  ```swift
- public func showPreview(for item: OnMobileRBTTrackItem, controller: UIViewController, animated: Bool, success: (() -> ())? = nil, failed fail: ((OnMobileRBTConnectorError) -> ())? = nil)
+ onMobileRBTConnectorResponse?.fetchAllContent(on: self, for: <Content ID/Name>, animated: true)
  ```
  
  ##### Parameters
  ```
-  item	: Provide the OnMobileRBTTrackItem
-  controller	: self
-  animated	: true/false
-  success	: Returns success block - default is nil
-  fail	: Returns OnMobileRBTConnectorError type
+controller: Provide the controller, on which the contentView  to be launched
+contentId: Provide the content detail for which the all the contents are required
+animated: `true / false`
+ ```
+
+ #### 4. Launch preview view for specific `OnMobileRBTTrackItem` item
+  
+ ##### Summary
+Launches the preview view for the provided `OnMobileRBTTrackItem` on provided `controller`
+  
+ ##### Declaration
+ ```swift
+ onMobileRBTConnectorResponse?.launchPreview(on: self, for: item, animated: true)
+ ```
+ 
+ ##### Parameters
+ ```
+controller: Provide the controller, on which the preview to be launched
+onMobileRBTTrackItem: Provide the item detail for which the preview required
+animated: `true / false`
  ```
 
 ## Copyright
