@@ -52,6 +52,21 @@ end
 $ pod install
 ```
 
+If, you see the below error :
+```bash
+[!] CocoaPods could not find compatible versions for pod "OnMobileRBTSDK":
+  In Podfile:
+    OnMobileRBTSDK (~> 2.1.1)
+
+None of your spec sources contain a spec satisfying the dependency: `OnMobileRBTSDK (~> 2.1.1)`.
+```
+
+Please, do run the below commands:
+```bash
+$ pod repo update
+$ pod install
+```
+
   ### Update Project Settings
 
   Post installing OnMobile RBT SDK to your project, please update the project settings by following below steps
@@ -72,15 +87,30 @@ import OnMobileRBTSDK
 
   ### Initialize OnMobile RBT SDK
 
+  ##### Summary
   Use the following code to initialize by passing the valid `MSISDN` number and valid `Key` and to call the methods please do save the response object received in `completedSuccessfully` block
 
-```swift
-OnMobileRBTConnector.initialize(withAuthenticationKey: key, forPhoneNumber: number, controller: self) { response in
+  ##### Implementation
+  ```swift
+  OnMobileRBTConnector.initialize(withAuthenticationKey: key, forPhoneNumber: number, controller: self) { response in
             //Save the OnMobileRBTConnectorResponse to use it for futher calls (shared instance preffered)
             //Ex: onMobileRBTConnectorResponse = response --> Use this for the below supported methods
         }
-```
-
+  ```
+  
+  ##### Declaration
+  ```swift
+  func initialize(withAuthenticationKey key: String, forPhoneNumber number: Int64, controller: UIViewController, completedSuccessfully success: @escaping ((OnMobileRBTConnectorResponse) -> ()))
+ ```
+ 
+  ##### Parameters
+  ```
+  key: Provide the `OnMobileRBTSDK` key to intialize
+  number: Provide appropriate number to intialize `OnMobileRBTSDK`
+  controller: Provide the controller, on which the `OnMobileRBTSDK` app to be launched or to through the error alerts
+  success: Provides the successfull `OnMobileRBTConnectorResponse` object to use for further requests
+  ```
+ 
   ### Supported methods
 
   #### 1. Launch the `OnMobileRBTSDK` app
@@ -88,9 +118,14 @@ OnMobileRBTConnector.initialize(withAuthenticationKey: key, forPhoneNumber: numb
   ##### Summary
   Launches the `OnMobileRBTSDK` app
   
-  ##### Declaration
+  ##### Implementation
  ```swift
  onMobileRBTConnectorResponse?.launch(on: self, animated: true)
+ ```
+ 
+   ##### Declaration
+ ```swift
+ func launch(on controller: UIViewController, animated: Bool)
  ```
  
  ##### Parameters
@@ -104,11 +139,16 @@ animated: `true / false`
  ##### Summary
  Provides the list of `OnMobileRBTTrackItem` items for the provide `content`
   
- ##### Declaration
+ ##### Implementation
  ```swift
  onMobileRBTConnectorResponse?.fetchContent(on: self, for: <Content ID/Name>, onMobileRBTTrackItems: { (items) in
             //Save (or) use the items
         })
+ ```
+ 
+ ##### Declaration
+ ```swift
+ func fetchContent(on controller: UIViewController, for contentId: String, onMobileRBTTrackItems items: (([OnMobileRBTTrackItem]) -> ())? = nil)
  ```
  
  ##### Parameters
@@ -123,9 +163,14 @@ items: Retuns the list of `OnMobileRBTTrackItem` items
  ##### Summary
 Launches the content view for the provide `content` with all the contents on provided `controller`
   
- ##### Declaration
+ ##### Implementation
  ```swift
  onMobileRBTConnectorResponse?.fetchAllContent(on: self, for: <Content ID/Name>, animated: true)
+ ```
+ 
+ ##### Declaration
+ ```swift
+ func fetchAllContent(on controller: UIViewController, for contentId: String, animated: Bool)
  ```
  
  ##### Parameters
@@ -140,9 +185,14 @@ animated: `true / false`
  ##### Summary
 Launches the preview view for the provided `OnMobileRBTTrackItem` on provided `controller`
   
- ##### Declaration
+ ##### Implementation
  ```swift
  onMobileRBTConnectorResponse?.launchPreview(on: self, for: item, animated: true)
+ ```
+ 
+ ##### Declaration
+ ```swift
+ func launchPreview(on controller: UIViewController, for onMobileRBTTrackItem: OnMobileRBTTrackItem, animated: Bool)
  ```
  
  ##### Parameters
