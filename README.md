@@ -42,7 +42,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-pod 'OnMobileRBTSDK', '~> 2.1.1'
+pod 'OnMobileRBTSDK', '~> 2.1.3'
 end
 ```
 
@@ -56,9 +56,9 @@ If, you see the below error :
 ```bash
 [!] CocoaPods could not find compatible versions for pod "OnMobileRBTSDK":
   In Podfile:
-    OnMobileRBTSDK (~> 2.1.1)
+    OnMobileRBTSDK (~> 2.1.3)
 
-None of your spec sources contain a spec satisfying the dependency: `OnMobileRBTSDK (~> 2.1.1)`.
+None of your spec sources contain a spec satisfying the dependency: `OnMobileRBTSDK (~> 2.1.3)`.
 ```
 
 Please, do run the below commands:
@@ -88,24 +88,25 @@ import OnMobileRBTSDK
   ### Initialize OnMobile RBT SDK
 
   ##### Summary
-  Use the following code to initialize by passing the valid `MSISDN` number and valid `Key` and to call the methods please do save the response object received in `completedSuccessfully` block
+  Use the following code to initialize by passing the valid `Authentication Key` & `Client Key` along with valid `Phone Number`. And to call the methods please do save the response object received in `completedSuccessfully` block
 
   ##### Implementation
   ```swift
-  OnMobileRBTConnector.initialize(withAuthenticationKey: key, forPhoneNumber: number, controller: self) { response in
+  OnMobileRBTConnector.initialize(withAuthenticationKey: "<Authentication key>", andClientKey: "<Client Key>", forPhoneNumber: <Phone Number>, controller: self) { (response) in
             //Save the OnMobileRBTConnectorResponse to use it for futher calls (shared instance preffered)
             //Ex: onMobileRBTConnectorResponse = response --> Use this for the below supported methods
-        }
+            }
   ```
   
   ##### Declaration
   ```swift
-  func initialize(withAuthenticationKey key: String, forPhoneNumber number: Int64, controller: UIViewController, completedSuccessfully success: @escaping ((OnMobileRBTConnectorResponse) -> ()))
+  func initialize(withAuthenticationKey key: String, andClientKey clientKey: String, forPhoneNumber number: Int64, controller: UIViewController, completedSuccessfully success: @escaping ((OnMobileRBTConnectorResponse) -> ()))
  ```
  
   ##### Parameters
   ```
   key: Provide the `OnMobileRBTSDK` key to intialize
+  clientKey: Provide the `Client(Operator)` key to intialize
   number: Provide appropriate number to intialize `OnMobileRBTSDK`
   controller: Provide the controller, on which the `OnMobileRBTSDK` app to be launched or to through the error alerts
   success: Provides the successfull `OnMobileRBTConnectorResponse` object to use for further requests
