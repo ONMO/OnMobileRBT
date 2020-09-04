@@ -42,7 +42,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-pod 'OnMobileRBTSDK', '~> 2.1.3'
+pod 'OnMobileRBTSDK', '~> 2.2.0'
 end
 ```
 
@@ -62,7 +62,7 @@ If, you see the below error :
   In Podfile:
     OnMobileRBTSDK (~> 2.2.0)
 
-None of your spec sources contain a spec satisfying the dependency: `OnMobileRBTSDK (~> 2.1.3)`.
+None of your spec sources contain a spec satisfying the dependency: `OnMobileRBTSDK (~> 2.2.0)`.
 ```
 
 Please, do run the below commands:
