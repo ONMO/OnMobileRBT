@@ -51,12 +51,16 @@ end
 ```bash
 $ pod install
 ```
+   or
+```bash
+$ pod install --repo-update
+```
 
 If, you see the below error :
 ```bash
 [!] CocoaPods could not find compatible versions for pod "OnMobileRBTSDK":
   In Podfile:
-    OnMobileRBTSDK (~> 2.1.3)
+    OnMobileRBTSDK (~> 2.2.0)
 
 None of your spec sources contain a spec satisfying the dependency: `OnMobileRBTSDK (~> 2.1.3)`.
 ```
@@ -92,10 +96,12 @@ import OnMobileRBTSDK
 
   ##### Implementation
   ```swift
-  OnMobileRBTConnector.initialize(withAuthenticationKey: "<Authentication key>", andClientKey: "<Client Key>", forPhoneNumber: <Phone Number>, controller: self) { (response) in
+  OnMobileRBTConnector.initialize(withAuthenticationKey: "<Authentication key>", andClientKey: "<Client Key>", forPhoneNumber: <Phone Number>, controller: self, succeeded: { (response) in
             //Save the OnMobileRBTConnectorResponse to use it for futher calls (shared instance preffered)
             //Ex: onMobileRBTConnectorResponse = response --> Use this for the below supported methods
-            }
+            }, failed: { (error) in
+            //Handle your error
+            })
   ```
   
   ##### Declaration
@@ -121,7 +127,9 @@ import OnMobileRBTSDK
   
   ##### Implementation
  ```swift
- onMobileRBTConnectorResponse?.launch(on: self, animated: true)
+ onMobileRBTConnectorResponse?.launch(on: self, animated: true, failed:  { (error) in
+            //Handle your error
+        })
  ```
  
    ##### Declaration
@@ -144,6 +152,8 @@ animated: `true / false`
  ```swift
  onMobileRBTConnectorResponse?.fetchContent(on: self, for: <Content ID/Name>, onMobileRBTTrackItems: { (items) in
             //Save (or) use the items
+        }, failed:  { (error) in
+            //Handle your error
         })
  ```
  
@@ -166,7 +176,9 @@ Launches the content view for the provide `content` with all the contents on pro
   
  ##### Implementation
  ```swift
- onMobileRBTConnectorResponse?.fetchAllContent(on: self, for: <Content ID/Name>, animated: true)
+ onMobileRBTConnectorResponse?.fetchAllContent(on: self, for: <Content ID/Name>, animated: true, failed:  { (error) in
+            //Handle your error
+        })
  ```
  
  ##### Declaration
@@ -188,7 +200,9 @@ Launches the preview view for the provided `OnMobileRBTTrackItem` on provided `c
   
  ##### Implementation
  ```swift
- onMobileRBTConnectorResponse?.launchPreview(on: self, for: item, animated: true)
+ onMobileRBTConnectorResponse?.launchPreview(on: self, for: item, animated: true, failed:  { (error) in
+            //Handle your error
+        })
  ```
  
  ##### Declaration
