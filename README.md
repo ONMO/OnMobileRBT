@@ -9,11 +9,9 @@
   - [Update Project Settings](#update-project-settings)
   - [Import OnMobile RBT SDK](#import-onmobile-rbt-sdk)
   - [Initialize OnMobile RBT SDK](#initialize-onmobile-rbt-sdk)
-  - [Supported methods](#supported-methods)
+  - [Supported methods and parameters](#supported-methods-and-parameters)
     - [Launch the `OnMobileRBTSDK` app](#1-launch-the-onmobilerbtsdk-app)
-    - [Provides the list of `OnMobileRBTTrackItem` items](#2-provides-the-list-of-onmobilerbttrackitem-items)
-    - [Launches the content view for the provide content](#3-launches-the-content-view-for-the-provide-content)
-    - [Launch preview view for specific `OnMobileRBTTrackItem` item](#4-launch-preview-view-for-specific-onmobilerbttrackitem-item)
+    - [Handle the observer event with the help of `OnMobileRBTConnectorListener`](#2-handle-the-observer-event-with-the-help-of-onmobilerbtconnectorlistener)
 - [Copyright](#copyright)
 
 ## Introduction
@@ -38,11 +36,11 @@ $ sudo gem install cocoapods
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
+platform :ios, '9.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-pod 'OnMobileRBTSDK', '~> 2.2.0'
+pod 'OnMobileRBTSDK', '~> 3.0.1'
 end
 ```
 
@@ -60,9 +58,9 @@ If, you see the below error :
 ```bash
 [!] CocoaPods could not find compatible versions for pod "OnMobileRBTSDK":
   In Podfile:
-    OnMobileRBTSDK (~> 2.2.0)
+    OnMobileRBTSDK (~> 3.0.1)
 
-None of your spec sources contain a spec satisfying the dependency: `OnMobileRBTSDK (~> 2.2.0)`.
+None of your spec sources contain a spec satisfying the dependency: `OnMobileRBTSDK (~> 3.0.1)`.
 ```
 
 Please, do run the below commands:
@@ -92,33 +90,34 @@ import OnMobileRBTSDK
   ### Initialize OnMobile RBT SDK
 
   ##### Summary
-  Use the following code to initialize by passing the valid `Authentication Key` & `Client Key` along with valid `Phone Number`. And to call the methods please do save the response object received in `completedSuccessfully` block
+  Use the following code to initialize by passing the valid `Authentication Key` along with valid `Phone Number` and appropriate `OnMobileRBTConnectorResponseListener Method` as a selector to handle the listener events. 
+  
+  For rest of action handlers and events capturers please do save the response object `OnMobileRBTConnectorResponse` received in `completedSuccessfully` block
+  To call the methods please do save 
 
   ##### Implementation
   ```swift
-  OnMobileRBTConnector.initialize(withAuthenticationKey: "<Authentication key>", andClientKey: "<Client Key>", forPhoneNumber: <Phone Number>, controller: self, succeeded: { (response) in
+  OnMobileRBTConnector.initialize(withAuthenticationKey: <authKey>, forPhoneNumber: <number>, controller: self, listener: #selector(onMobileRBTConnectorResponseListenerMethod)) { (response) in
             //Save the OnMobileRBTConnectorResponse to use it for futher calls (shared instance preffered)
-            //Ex: onMobileRBTConnectorResponse = response --> Use this for the below supported methods
-            }, failed: { (error) in
-            //Handle your error
-            })
+            //Ex: self.onMobileRBTConnectorResponse = response --> Use this for the below supported methods
+        }
   ```
   
   ##### Declaration
   ```swift
-  func initialize(withAuthenticationKey key: String, andClientKey clientKey: String, forPhoneNumber number: Int64, controller: UIViewController, completedSuccessfully success: @escaping ((OnMobileRBTConnectorResponse) -> ()))
+  func initialize(withAuthenticationKey key: String, forPhoneNumber number: String, controller: UIViewController, listener selector: Selector? = nil, completedSuccessfully success: @escaping ((OnMobileRBTConnectorResponse) -> ()))
  ```
  
   ##### Parameters
   ```
-  key: Provide the `OnMobileRBTSDK` key to intialize
-  clientKey: Provide the `Client(Operator)` key to intialize
-  number: Provide appropriate number to intialize `OnMobileRBTSDK`
-  controller: Provide the controller, on which the `OnMobileRBTSDK` app to be launched or to through the error alerts
-  success: Provides the successfull `OnMobileRBTConnectorResponse` object to use for further requests
+  - key: Provide the `OnMobileRBTSDK` key to intialize
+  - number: Provide appropriate number to intialize `OnMobileRBTSDK`
+  - controller: Provide the controller, on which the `OnMobileRBTSDK` app to be launched or to through the error alerts
+  - selector: Provide the selector to handle the listeners
+  - success: Provides the successfull `OnMobileRBTConnectorResponse` object to use for further requests
   ```
  
-  ### Supported methods
+  ### Supported methods and parameters
 
   #### 1. Launch the `OnMobileRBTSDK` app
   
@@ -127,9 +126,7 @@ import OnMobileRBTSDK
   
   ##### Implementation
  ```swift
- onMobileRBTConnectorResponse?.launch(on: self, animated: true, failed:  { (error) in
-            //Handle your error
-        })
+  onMobileRBTConnectorResponse?.launch(on: self, animated: true)
  ```
  
    ##### Declaration
@@ -139,83 +136,38 @@ import OnMobileRBTSDK
  
  ##### Parameters
  ```
-controller: Provide the controller, on which the `OnMobileRBTSDK` app to be launched
-animated: `true / false`
+  - controller: Provide the controller, on which the `OnMobileRBTSDK` app to be launched
+  - animated: `true / false`
  ```
 
- #### 2. Provides the list of `OnMobileRBTTrackItem` items 
+ #### 2. Handle the observer event with the help of `OnMobileRBTConnectorListener` 
  
  ##### Summary
- Provides the list of `OnMobileRBTTrackItem` items for the provide `content`
-  
+ Provides `OnMobileRBTConnectorListener` details to handle the actions with the respective object
+ 
  ##### Implementation
+ Need to access this object only from the saved object of `OnMobileRBTConnectorResponse`
+ 
  ```swift
- onMobileRBTConnectorResponse?.fetchContent(on: self, for: <Content ID/Name>, onMobileRBTTrackItems: { (items) in
-            //Save (or) use the items
-        }, failed:  { (error) in
-            //Handle your error
-        })
+  let type = onMobileRBTConnectorResponse?.listener.type
+  let activationObject = onMobileRBTConnectorResponse?.listener.activationObject
+  let deActivationObject = onMobileRBTConnectorResponse?.listener.deActivationObject
  ```
- 
- ##### Declaration
- ```swift
- func fetchContent(on controller: UIViewController, for contentId: String, onMobileRBTTrackItems items: (([OnMobileRBTTrackItem]) -> ())? = nil)
- ```
- 
- ##### Parameters
- ```
-controller: Provide the controller, on which the list of content details required, default acceptable value is `self`
-contentId: Provide the content detail for which the all the contents are required
-items: Retuns the list of `OnMobileRBTTrackItem` items
- ```
- 
- #### 3. Launches the content view for the provide content 
- 
- ##### Summary
-Launches the content view for the provide `content` with all the contents on provided `controller`
   
- ##### Implementation
+ ##### Declaration and details of `OnMobileRBTConnectorListener` parameters
  ```swift
- onMobileRBTConnectorResponse?.fetchAllContent(on: self, for: <Content ID/Name>, animated: true, failed:  { (error) in
-            //Handle your error
-        })
+  var type: OnMobileRBTConnectorListenerType
+  var activationObject: Any?
+  var deActivationObject: Any?
  ```
  
- ##### Declaration
- ```swift
- func fetchAllContent(on controller: UIViewController, for contentId: String, animated: Bool)
+ ##### Details of `OnMobileRBTConnectorListenerType` 
  ```
- 
- ##### Parameters
+    sdkOpen - Listener type sent when sdk UI open
+    sdkClose - Listener type sent when sdk UI open
+    activation - Listener type sent when sdk is activating a subscription
+    deActivation - Listener type sent when sdk is deactivating a subscription
  ```
-controller: Provide the controller, on which the contentView  to be launched
-contentId: Provide the content detail for which the all the contents are required
-animated: `true / false`
- ```
-
- #### 4. Launch preview view for specific `OnMobileRBTTrackItem` item
-  
- ##### Summary
-Launches the preview view for the provided `OnMobileRBTTrackItem` on provided `controller`
-  
- ##### Implementation
- ```swift
- onMobileRBTConnectorResponse?.launchPreview(on: self, for: item, animated: true, failed:  { (error) in
-            //Handle your error
-        })
- ```
- 
- ##### Declaration
- ```swift
- func launchPreview(on controller: UIViewController, for onMobileRBTTrackItem: OnMobileRBTTrackItem, animated: Bool)
- ```
- 
- ##### Parameters
- ```
-controller: Provide the controller, on which the preview to be launched
-onMobileRBTTrackItem: Provide the item detail for which the preview required
-animated: `true / false`
-```
 
 ## Copyright
 
