@@ -97,24 +97,30 @@ import OnMobileRBTSDK
 
   ##### Implementation
   ```swift
-  OnMobileRBTConnector.initialize(withAuthenticationKey: <authKey>, forPhoneNumber: <number>, controller: self, listener: #selector(onMobileRBTConnectorResponseListenerMethod)) { (response) in
-            //Save the OnMobileRBTConnectorResponse to use it for futher calls (shared instance preffered)
-            //Ex: self.onMobileRBTConnectorResponse = response --> Use this for the below supported methods
-        }
+  OnMobileRBTConnector.initialize(withAuthenticationKey: <authKey>, andClientKey: <clientKey>, forPhoneNumber: <number>, andPhoneNumbers: <phoneNumbers>, controller: self, listener: #selector(onMobileRBTConnectorResponseCallbackListenerMethod), eventListener: #selector(onMobileRBTConnectorResponseEventListenerMethod), succedded: { (response) in
+  //Save the OnMobileRBTConnectorResponse to use it for futher calls (shared instance preffered)
+  //Ex: self.onMobileRBTConnectorResponse = response --> Use this for the below supported methods
+  }, failed: { (onMobileRBTError) in
+  //Handle Error
+  })
   ```
   
   ##### Declaration
   ```swift
-  func initialize(withAuthenticationKey key: String, forPhoneNumber number: String, controller: UIViewController, listener selector: Selector? = nil, completedSuccessfully success: @escaping ((OnMobileRBTConnectorResponse) -> ()))
+  func initialize(withAuthenticationKey key: String, andClientKey clientKey: String, forPhoneNumber number: String, andPhoneNumbers phoneNumbers: [String]? = nil, controller: UIViewController, listener selector: Selector? = nil, eventListener eventSelector: Selector? = nil, succedded success: @escaping ((OnMobileRBTConnectorResponse) -> ()), failed fail: @escaping ((OnMobileRBTError) -> ())) 
  ```
  
   ##### Parameters
   ```
   - key: Provide the `OnMobileRBTSDK` key to intialize
+  - clientKey: Provide the `Client` key to intialize
   - number: Provide appropriate number to intialize `OnMobileRBTSDK`
-  - controller: Provide the controller, on which the `OnMobileRBTSDK` app to be launched or to through the error alerts
+  - phoneNumbers: Provide array of numbers to support multiple numbers in `OnMobileRBTSDK`
+  - controller: Provide the controller, on which the `OnMobileRBTSDK` app to be launched
   - selector: Provide the selector to handle the listeners
+  - eventSelector: Provide the selector to handle the event listeners
   - success: Provides the successfull `OnMobileRBTConnectorResponse` object to use for further requests
+  - fail: Provides the error `OnMobileRBTError` object to handle the errors
   ```
  
   ### Supported methods and parameters
@@ -122,53 +128,78 @@ import OnMobileRBTSDK
   #### 1. Launch the `OnMobileRBTSDK` app
   
   ##### Summary
-  Launches the `OnMobileRBTSDK` app
+  Launches the `OnMobileRBTSDK` app with the help of saved `OnMobileRBTConnectorResponse` object
   
   ##### Implementation
  ```swift
-  onMobileRBTConnectorResponse?.launch(on: self, animated: true)
+ onMobileRBTConnectorResponse?.launch(on: self, animated: true, failed: { (error) in
+  //Handle Error
+ })
  ```
  
    ##### Declaration
  ```swift
- func launch(on controller: UIViewController, animated: Bool)
+ func launch(on controller: UIViewController, animated: Bool, failed fail: @escaping ((OnMobileRBTError) -> ()))
  ```
  
  ##### Parameters
  ```
-  - controller: Provide the controller, on which the `OnMobileRBTSDK` app to be launched
+  - controller:Provide the controller, on which the `OnMobileRBTSDK` app to be launched
   - animated: `true / false`
+  - fail: Provides the error `OnMobileRBTError` object to handle the errors
  ```
 
- #### 2. Handle the observer event with the help of `OnMobileRBTConnectorListener` 
+ #### 2. Handle the callback observer event with the help of `OnMobileRBTConnectorCallbackListener` 
  
  ##### Summary
- Provides `OnMobileRBTConnectorListener` details to handle the actions with the respective object
+ Provides `OnMobileRBTConnectorCallbackListener` details to handle the actions with the respective object
  
  ##### Implementation
  Need to access this object only from the saved object of `OnMobileRBTConnectorResponse`
  
  ```swift
-  let type = onMobileRBTConnectorResponse?.listener.type
-  let activationObject = onMobileRBTConnectorResponse?.listener.activationObject
-  let deActivationObject = onMobileRBTConnectorResponse?.listener.deActivationObject
+  let listenerType = onMobileRBTConnectorResponse?.callbackListener.type
+  let onMobileRBTConnectorCallback = self.onMobileRBTConnectorResponse?.callbackListener.onMobileRBTConnectorCallback
  ```
   
- ##### Declaration and details of `OnMobileRBTConnectorListener` parameters
+ ##### Declaration and details of `OnMobileRBTConnectorCallbackListener` parameters
  ```swift
-  var type: OnMobileRBTConnectorListenerType
-  var activationObject: Any?
-  var deActivationObject: Any?
+  var type: OnMobileRBTConnectorCallbackListenerType?
+  var onMobileRBTConnectorCallback: OnMobileRBTConnectorCallback?
  ```
  
- ##### Details of `OnMobileRBTConnectorListenerType` 
+ ##### Details of `OnMobileRBTConnectorCallbackListenerType` 
  ```
-    sdkOpen - Listener type sent when sdk UI open
-    sdkClose - Listener type sent when sdk UI open
     activation - Listener type sent when sdk is activating a subscription
     deActivation - Listener type sent when sdk is deactivating a subscription
+ ```
+ 
+ #### 3. Handle the callback observer event with the help of `OnMobileRBTConnectorEventListener` 
+ 
+ ##### Summary
+ Provides `OnMobileRBTConnectorEventListener` details to handle the actions with the respective object
+ 
+ ##### Implementation
+ Need to access this object only from the saved object of `OnMobileRBTConnectorResponse`
+ 
+ ```swift
+  let listenerType = onMobileRBTConnectorResponse?.eventListener.type
+  let event = onMobileRBTConnectorResponse?.eventListener.event
+ ```
+  
+ ##### Declaration and details of `OnMobileRBTConnectorEventListener` parameters
+ ```swift
+  var type: OnMobileRBTConnectorEventListenerType?
+  var event: (String, [String : Any])?
+ ```
+ 
+ ##### Details of `OnMobileRBTConnectorEventListenerType` 
+ ```
+  sdkOpen - Listener type sent when sdk UI open
+  sdkClose - Listener type sent when sdk UI close
+  event - Listener type for event
  ```
 
 ## Copyright
 
-### ©2020 OnMobile Global Limited All Rights Reserved.
+### ©2021 OnMobile Global Limited All Rights Reserved.
