@@ -11,7 +11,8 @@
   - [Initialize OnMobile RBT SDK](#initialize-onmobile-rbt-sdk)
   - [Supported methods and parameters](#supported-methods-and-parameters)
     - [Launch the `OnMobileRBTSDK` app](#1-launch-the-onmobilerbtsdk-app)
-    - [Handle the observer event with the help of `OnMobileRBTConnectorListener`](#2-handle-the-observer-event-with-the-help-of-onmobilerbtconnectorlistener)
+    - [Handle the callback observer event with the help of `OnMobileRBTConnectorCallbackListener`](#2-handle-the-callback-observer-event-with-the-help-of-onmobilerbtconnectorcallbacklistener)
+    - [Handle the callback observer event with the help of `OnMobileRBTConnectorEventListener`](#3-handle-the-callback-observer-event-with-the-help-of-onMobilerbtconnectoreventlistener)
 - [Copyright](#copyright)
 
 ## Introduction
