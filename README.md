@@ -12,7 +12,8 @@
   - [Supported methods and parameters](#supported-methods-and-parameters)
     - [Launch the `OnMobileRBTSDK` app](#1-launch-the-onmobilerbtsdk-app)
     - [Handle the callback observer event with the help of `OnMobileRBTConnectorCallbackListener`](#2-handle-the-callback-observer-event-with-the-help-of-onmobilerbtconnectorcallbacklistener)
-    - [Handle the callback observer event with the help of `OnMobileRBTConnectorEventListener`](#3-handle-the-callback-observer-event-with-the-help-of-onMobilerbtconnectoreventlistener)
+    - [Handle the callback observer event with the help of `OnMobileRBTConnectorEventListener`](#3-handle-the-callback-observer-event-with-the-help-of-onmobilerbtconnectoreventlistener)
+- [Dependencies](#dependencies)
 - [Copyright](#copyright)
 
 ## Introduction
@@ -200,6 +201,19 @@ import OnMobileRBTSDK
   sdkClose - Listener type sent when sdk UI close
   event - Listener type for event
  ```
+
+## Dependencies
+  
+  ##### Other frameworks or libraries used and version details
+  ```
+  'Alamofire', '4.9.0'
+  'CryptoSwift', '1.4.0'
+  'ISPageControl', '0.1.0'
+  'SDWebImage', '5.1.1'
+  'SwiftDate', '6.0.3'
+  'TrustKit', '1.5.3'
+  'youtube-ios-player-helper', '0.1.6'
+  ```
 
 ## Copyright
 
