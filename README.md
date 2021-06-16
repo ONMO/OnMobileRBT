@@ -42,7 +42,7 @@ platform :ios, '9.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-pod 'OnMobileRBTSDK', '~> 3.0.5'
+pod 'OnMobileRBTSDK', '3.0.8'
 end
 ```
 
@@ -60,9 +60,9 @@ If, you see the below error :
 ```bash
 [!] CocoaPods could not find compatible versions for pod "OnMobileRBTSDK":
   In Podfile:
-    OnMobileRBTSDK (~> 3.0.5)
+    OnMobileRBTSDK (3.0.8)
 
-None of your spec sources contain a spec satisfying the dependency: `OnMobileRBTSDK (~> 3.0.5)`.
+None of your spec sources contain a spec satisfying the dependency: `OnMobileRBTSDK (3.0.8)`.
 ```
 
 Please, do run the below commands:
