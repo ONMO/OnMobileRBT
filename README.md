@@ -34,7 +34,7 @@
 $ sudo gem install cocoapods
 ```
 
-  To integrate OnMobile RBT SDK into your Xcode project using CocoaPods, specify it in your `Podfile`:
+  To integrate OnMobile RBT SDK into your Xcode project using CocoaPods(Use the version number provided to you), specify it in your `Podfile`:
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
@@ -42,7 +42,7 @@ platform :ios, '9.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-pod 'OnMobileRBTSDK', '3.0.8'
+pod 'OnMobileRBTSDK', '<x.x.x>'
 end
 ```
 
@@ -60,9 +60,9 @@ If, you see the below error :
 ```bash
 [!] CocoaPods could not find compatible versions for pod "OnMobileRBTSDK":
   In Podfile:
-    OnMobileRBTSDK (3.0.8)
+    OnMobileRBTSDK (<x.x.x>)
 
-None of your spec sources contain a spec satisfying the dependency: `OnMobileRBTSDK (3.0.8)`.
+None of your spec sources contain a spec satisfying the dependency: `OnMobileRBTSDK (<x.x.x>)`.
 ```
 
 Please, do run the below commands:
