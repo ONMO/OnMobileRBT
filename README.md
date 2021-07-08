@@ -99,7 +99,7 @@ import OnMobileRBTSDK
 
   ##### Implementation
   ```swift
-  OnMobileRBTConnector.initialize(withAuthenticationKey: <authKey>, andClientKey: <clientKey>, forPhoneNumber: <number>, andPhoneNumbers: <phoneNumbers>, controller: self, listener: #selector(onMobileRBTConnectorResponseCallbackListenerMethod), eventListener: #selector(onMobileRBTConnectorResponseEventListenerMethod), succedded: { (response) in
+  OnMobileRBTConnector.initialize(withAuthenticationKey: <authKey>, andClientKey: <clientKey>, forPhoneNumber: <number>, andPhoneNumbers: <phoneNumbers>, withLanguageCode: <languageCode>, controller: self, listener: #selector(onMobileRBTConnectorResponseCallbackListenerMethod), eventListener: #selector(onMobileRBTConnectorResponseEventListenerMethod), succedded: { (response) in
   //Save the OnMobileRBTConnectorResponse to use it for futher calls (shared instance preffered)
   //Ex: self.onMobileRBTConnectorResponse = response --> Use this for the below supported methods
   }, failed: { (onMobileRBTError) in
@@ -109,7 +109,7 @@ import OnMobileRBTSDK
   
   ##### Declaration
   ```swift
-  func initialize(withAuthenticationKey key: String, andClientKey clientKey: String, forPhoneNumber number: String, andPhoneNumbers phoneNumbers: [String]? = nil, controller: UIViewController, listener selector: Selector? = nil, eventListener eventSelector: Selector? = nil, succedded success: @escaping ((OnMobileRBTConnectorResponse) -> ()), failed fail: @escaping ((OnMobileRBTError) -> ())) 
+  func initialize(withAuthenticationKey key: String, andClientKey clientKey: String, forPhoneNumber number: String, andPhoneNumbers phoneNumbers: [String]? = nil, withLanguageCode languageCode: String? = nil, controller: UIViewController, listener selector: Selector? = nil, eventListener eventSelector: Selector? = nil, succedded success: @escaping ((OnMobileRBTConnectorResponse) -> ()), failed fail: @escaping ((OnMobileRBTError) -> ())) 
  ```
  
   ##### Parameters
@@ -118,6 +118,7 @@ import OnMobileRBTSDK
   - clientKey: Provide the `Client` key to intialize
   - number: Provide appropriate number to intialize `OnMobileRBTSDK`
   - phoneNumbers: Provide array of numbers to support multiple numbers in `OnMobileRBTSDK`
+  - languageCode: Provide any one languageCode shared.
   - controller: Provide the controller, on which the `OnMobileRBTSDK` app to be launched
   - selector: Provide the selector to handle the listeners
   - eventSelector: Provide the selector to handle the event listeners
@@ -150,6 +151,16 @@ import OnMobileRBTSDK
   - animated: `true / false`
   - fail: Provides the error `OnMobileRBTError` object to handle the errors
  ```
+ 
+ ##### Details of `OnMobileRBTError` 
+ ```
+  iOSVersionMinimum9Required - Please upgrade your iOS version to iOS 9.0 or later
+  invalidKey - Unable to open callertune store now. Due to invalid key.
+  invalidClient - Unable to open callertune store now. Due to invalid client.
+  invalidClientKey - Unable to open callertune store now. Due to invalid client key.
+  notIntialized - Unable to open callertune store now. Please try after sometime.
+  invalidRequest - Unable to fetch content from store now. Due to invalid request.
+ ```
 
  #### 2. Handle the callback observer event with the help of `OnMobileRBTConnectorCallbackListener` 
  
@@ -174,6 +185,38 @@ import OnMobileRBTSDK
  ```
     activation - Listener type sent when sdk is activating a subscription
     deActivation - Listener type sent when sdk is deactivating a subscription
+ ```
+ 
+ ##### Details of `OnMobileRBTConnectorCallback` 
+ ```
+    //Client completion callback block to communicate with SDK, parameter accepted is `ClientCallBack`
+    completion : ((ClientCallBack) -> Void)?
+    
+    //Properties to use on convenience
+    controller : UIViewController?
+    thirdPartyUrlString : String?
+    msisdn : String?
+    title : String?
+    album : String?
+    artist : String?
+    contentID : String?
+    contentLanguage : String?
+    contentType : String?
+    imageURL : String?
+    previewStreamURL : String?
+    displayDownloadCount : String?
+    name : String?
+    subscriptionPrice : String?
+    currency : String?
+    validity : String?
+    isAutoRenewalPack : Bool?
+ ```
+ 
+ ###### Details of `ClientCallBack` 
+ ```
+    success - Client Callback type to communicate with sdk when it is success
+    fail - Client Callback type to communicate with sdk when it is success
+    cancel - Client Callback type to communicate with sdk when it is cancelled
  ```
  
  #### 3. Handle the callback observer event with the help of `OnMobileRBTConnectorEventListener` 
