@@ -215,7 +215,7 @@ import OnMobileRBTSDK
  ###### Details of `ClientCallBack` 
  ```
     success - Client Callback type to communicate with sdk when it is success
-    fail - Client Callback type to communicate with sdk when it is success
+    fail - Client Callback type to communicate with sdk when it is failed
     cancel - Client Callback type to communicate with sdk when it is cancelled
  ```
  
