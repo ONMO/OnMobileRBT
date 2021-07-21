@@ -77,11 +77,16 @@ $ pod install
 
   #### 1. Navigate to Project Target Info Tab
 
-![Step1](https://github.com/ONMO/VodafoneCallerTunes/blob/master/Navigate%20to%20Project%20Target%20Info%20Tab.png)
-
   #### 2. Add following Properties in Custom iOS Target Properties list
-
-![Step2](https://github.com/ONMO/VodafoneCallerTunes/blob/master/Add%20following%20Properties%20in%20Custom%20iOS%20Target%20Properties%20list.png)
+  
+  ##### a. `App Transport Security Settings` - `Dictionary` - Add below item a1
+  ##### a1. `Allow Arbitrary Loads` - `Boolean` - `Yes`
+      
+  ##### b. `Privacy - Contacts Usage Description` - `String` - Your preffered message to alert user about accessing contacts in app on the supported localization
+  
+  ##### c. `Privacy - Microphone Usage Description` - `String` - Your preffered message to alert user about accessing microphone in app on the supported localization
+  
+  ##### d. `Privacy - Speech Recognition Usage Description` - `String` - Your preffered message to alert user about determing the voice of microphone in app on the supported localization
 
   ### Import OnMobile RBT SDK
   
@@ -140,7 +145,7 @@ import OnMobileRBTSDK
  })
  ```
  
-   ##### Declaration
+  ##### Declaration
  ```swift
  func launch(on controller: UIViewController, animated: Bool, failed fail: @escaping ((OnMobileRBTError) -> ()))
  ```
