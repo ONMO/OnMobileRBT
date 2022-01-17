@@ -218,7 +218,7 @@ import OnMobileRBTSDK
   #### Note
   
     Save the response object `OnMobileRBTConnectorResponse` for further transactions, 
-    pease call the below methods on this object
+    please call the below methods on this object
     
   ### Preview and Set RBT
   
