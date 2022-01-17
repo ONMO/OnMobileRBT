@@ -10,6 +10,7 @@
   - [CocoaPods](#cocoapods)
   - [Update Project Settings](#update-project-settings)
   - [Import OnMobile RBT SDK](#import-onmobile-rbt-sdk)
+- [SDK Method implementations](#sdk-method-implementations)
   - [Initialize OnMobile RBT SDK](#initialize-onmobile-rbt-sdk)
   - [Check content availability](#check-content-availability)
   - [Setup for Transactions](#setup-for-transactions)
@@ -38,13 +39,7 @@ $ sudo gem install cocoapods
   To integrate OnMobile RBT SDK into your Xcode project using CocoaPods(Use the version number provided to you), specify it in your `Podfile`:
 
 ```ruby
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '9.0'
-use_frameworks!
-
-target '<Your Target Name>' do
-pod 'OnMobileRBTSDK', '<x.x.x>'
-end
+pod 'OnMobileRBTSDK', '3.0.16'
 ```
 
   Then, run the following command on your project path:
@@ -95,6 +90,8 @@ $ pod install
 import OnMobileRBTSDK
 ```
 
+  ## SDK Method implementations
+  
   ### Initialize OnMobile RBT SDK
   
   #### Summary
@@ -118,6 +115,19 @@ import OnMobileRBTSDK
 - fail : Provides the error callback with OnMobileRBTError object to handle the errors
   ```
   
+  #### Implementation
+  
+    OnMobileRBTConnector.initialize(
+                withAuthenticationKey: "<Authentication Key>",
+                andClientKey: "<Client Key>",
+                succedded: {
+                    /*Success call back code*/
+                },
+                failed: { (error) in
+                    /*Failure call back code*/
+                }
+            )
+  
   ### Check content availability
   
   #### Summary
@@ -139,6 +149,18 @@ import OnMobileRBTSDK
   - success : Provides the successfull callback with list of IsrcItem object
   - fail : Provides the error callback with OnMobileRBTError object to handle the errors
   ```
+  
+  #### Implementation
+  
+    OnMobileRBTConnector.contentAvailability(
+                for: ["<isrcid1>", "<isrcid2>"],
+                   succedded: { (isrcItems) in
+                       /*Success call back code*/
+                   },
+                   failed: { (error) in
+                       /*Failure call back code*/
+                   }
+            )
   
   ### Setup for Transactions
   
@@ -173,15 +195,37 @@ import OnMobileRBTSDK
 - fail : Provides the error callback with OnMobileRBTError object to handle the errors
 ```
 
+  #### Implementation
+  
+    OnMobileRBTConnector.setup(
+                forPhoneNumber: "<Phonenumber>",
+                andPhoneNumbers: nil,
+                withLanguageCode: nil,
+                controller: self,
+                listener: nil,
+                eventListener: nil,
+                succedded: { (response) in
+                    /*
+                     Success call back code
+                     self.onMobileRBTConnectorResponse = response
+                     */
+                },
+                failed: { (error) in
+                    /*Failure call back code*/
+                }
+            )
+
   #### Note
   
-    Save the response object `OnMobileRBTConnectorResponse` for further transactions, pl ease call the below methods on this object
+    Save the response object `OnMobileRBTConnectorResponse` for further transactions, 
+    pease call the below methods on this object
     
   ### Preview and Set RBT
   
   #### Summary
   
-    Launches the OnMobileRBTSDK Preview UI for the provided ISRC code to set it as RBT (Use the saved instance object `OnMobileRBTConnectorResponse` to call this method
+    Launches the OnMobileRBTSDK Preview UI for the provided ISRC code to set it as RBT 
+    (Use the saved instance object `OnMobileRBTConnectorResponse` to call this method)
   
   #### Declaration
   
@@ -200,6 +244,16 @@ import OnMobileRBTSDK
   - animated : true / false
   - fail : Provides the error callback OnMobileRBTError object to handle the errors
  ```
+ 
+  #### Implementation
+  
+    self.onMobileRBTConnectorResponse?.previewAndSetRBT(
+            for: "<isrcid>",
+               on: self,
+               animated: true,
+               failed: { (error) in
+                   /*Failure call back code*/
+               })
 
 ## Dependencies
   
@@ -212,6 +266,8 @@ import OnMobileRBTSDK
   'TrustKit', '1.5.3'
   'youtube-ios-player-helper', '0.1.6'
   ```
+  
+  ##### iOS Support is form 10.0+
 
 ## Copyright
 
