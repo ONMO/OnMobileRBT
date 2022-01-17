@@ -2,6 +2,8 @@
 
 # OnMobile RBT SDK
 
+#### Prior Note: `For the versions earlier to 3.0.16 please refer the document` [here](https://github.com/ONMO/OnMobileRBT/blob/master/README-v3.0.15.md)
+
 - [Introduction](#introduction)
   - [Purpose](#purpose)
 - [SDK Integration Steps](#sdk-integration-steps)
@@ -9,10 +11,9 @@
   - [Update Project Settings](#update-project-settings)
   - [Import OnMobile RBT SDK](#import-onmobile-rbt-sdk)
   - [Initialize OnMobile RBT SDK](#initialize-onmobile-rbt-sdk)
-  - [Supported methods and parameters](#supported-methods-and-parameters)
-    - [Launch the `OnMobileRBTSDK` app](#1-launch-the-onmobilerbtsdk-app)
-    - [Handle the callback observer event with the help of `OnMobileRBTConnectorCallbackListener`](#2-handle-the-callback-observer-event-with-the-help-of-onmobilerbtconnectorcallbacklistener)
-    - [Handle the callback observer event with the help of `OnMobileRBTConnectorEventListener`](#3-handle-the-callback-observer-event-with-the-help-of-onmobilerbtconnectoreventlistener)
+  - [Check content availability](#check-content-availability)
+  - [Setup for Transactions](#setup-for-transactions)
+  - [Preview and Set RBT](#preview-and-set-rbt)
 - [Dependencies](#dependencies)
 - [Copyright](#copyright)
 
@@ -95,159 +96,109 @@ import OnMobileRBTSDK
 ```
 
   ### Initialize OnMobile RBT SDK
-
-  ##### Summary
-  Use the following code to initialize by passing the valid `Authentication Key` along with valid `Phone Number` and appropriate `OnMobileRBTConnectorResponseListener Method` as a selector to handle the listener events. 
   
-  For rest of action handlers and events capturers please do save the response object `OnMobileRBTConnectorResponse` received in `completedSuccessfully` block
-  To call the methods please do save 
+  #### Summary
+  
+    Initializes `OnMobileRBTSDK`
+  
+  #### Declaration
+    @objc static func initialize(
+                      withAuthenticationKey authKey: String, 
+                      andClientKey clientKey: String, 
+                      succedded success: @escaping (() -> ()), 
+                      failed fail: @escaping ((OnMobileRBTError) -> ())
+                      )
 
-  ##### Implementation
-  ```swift
-  OnMobileRBTConnector.initialize(withAuthenticationKey: <authKey>, andClientKey: <clientKey>, forPhoneNumber: <number>, andPhoneNumbers: <phoneNumbers>, withLanguageCode: <languageCode>, controller: self, listener: #selector(onMobileRBTConnectorResponseCallbackListenerMethod), eventListener: #selector(onMobileRBTConnectorResponseEventListenerMethod), succedded: { (response) in
-  //Save the OnMobileRBTConnectorResponse to use it for futher calls (shared instance preffered)
-  //Ex: self.onMobileRBTConnectorResponse = response --> Use this for the below supported methods
-  }, failed: { (onMobileRBTError) in
-  //Handle Error
-  })
+ #### Parameters
+
+```
+- authKey : Provide the OnMobileRBTSDK authentication key shared by organization to intialize
+- clientKey : Provide the Client key shared by organization to intialize
+- success : Povides a successfull callback after initializtion
+- fail : Provides the error callback with OnMobileRBTError object to handle the errors
   ```
   
-  ##### Declaration
-  ```swift
-  func initialize(withAuthenticationKey key: String, andClientKey clientKey: String, forPhoneNumber number: String, andPhoneNumbers phoneNumbers: [String]? = nil, withLanguageCode languageCode: String? = nil, controller: UIViewController, listener selector: Selector? = nil, eventListener eventSelector: Selector? = nil, succedded success: @escaping ((OnMobileRBTConnectorResponse) -> ()), failed fail: @escaping ((OnMobileRBTError) -> ())) 
- ```
- 
-  ##### Parameters
-  ```
-  - key: Provide the `OnMobileRBTSDK` key to intialize
-  - clientKey: Provide the `Client` key to intialize
-  - number: Provide appropriate number to intialize `OnMobileRBTSDK`
-  - phoneNumbers: Provide array of numbers to support multiple numbers in `OnMobileRBTSDK`
-  - languageCode: Provide any one languageCode shared.
-  - controller: Provide the controller, on which the `OnMobileRBTSDK` app to be launched
-  - selector: Provide the selector to handle the listeners
-  - eventSelector: Provide the selector to handle the event listeners
-  - success: Provides the successfull `OnMobileRBTConnectorResponse` object to use for further requests
-  - fail: Provides the error `OnMobileRBTError` object to handle the errors
-  ```
- 
-  ### Supported methods and parameters
-
-  #### 1. Launch the `OnMobileRBTSDK` app
+  ### Check content availability
   
-  ##### Summary
-  Launches the `OnMobileRBTSDK` app with the help of saved `OnMobileRBTConnectorResponse` object
+  #### Summary
   
-  ##### Implementation
- ```swift
- onMobileRBTConnectorResponse?.launch(on: self, animated: true, failed: { (error) in
-  //Handle Error
- })
- ```
- 
-  ##### Declaration
- ```swift
- func launch(on controller: UIViewController, animated: Bool, failed fail: @escaping ((OnMobileRBTError) -> ()))
- ```
- 
- ##### Parameters
- ```
-  - controller:Provide the controller, on which the `OnMobileRBTSDK` app to be launched
-  - animated: `true / false`
-  - fail: Provides the error `OnMobileRBTError` object to handle the errors
- ```
- 
- ##### Details of `OnMobileRBTError` 
- ```
-  iOSVersionMinimum9Required - Please upgrade your iOS version to iOS 9.0 or later
-  invalidKey - Unable to open callertune store now. Due to invalid key.
-  invalidClient - Unable to open callertune store now. Due to invalid client.
-  invalidClientKey - Unable to open callertune store now. Due to invalid client key.
-  notIntialized - Unable to open callertune store now. Please try after sometime.
-  invalidRequest - Unable to fetch content from store now. Due to invalid request.
- ```
-
- #### 2. Handle the callback observer event with the help of `OnMobileRBTConnectorCallbackListener` 
- 
- ##### Summary
- Provides `OnMobileRBTConnectorCallbackListener` details to handle the actions with the respective object
- 
- ##### Implementation
- Need to access this object only from the saved object of `OnMobileRBTConnectorResponse`
- 
- ```swift
-  let listenerType = onMobileRBTConnectorResponse?.callbackListener.type
-  let onMobileRBTConnectorCallback = self.onMobileRBTConnectorResponse?.callbackListener.onMobileRBTConnectorCallback
- ```
+    Checks whether the content is available or not for the provided ISRC codes
   
- ##### Declaration and details of `OnMobileRBTConnectorCallbackListener` parameters
- ```swift
-  var type: OnMobileRBTConnectorCallbackListenerType?
-  var onMobileRBTConnectorCallback: OnMobileRBTConnectorCallback?
- ```
- 
- ##### Details of `OnMobileRBTConnectorCallbackListenerType` 
- ```
-    activation - Listener type sent when sdk is activating a subscription
-    deActivation - Listener type sent when sdk is deactivating a subscription
- ```
- 
- ##### Details of `OnMobileRBTConnectorCallback` 
- ```
-    //Client completion callback block to communicate with SDK, parameter accepted is `ClientCallBack`
-    completion : ((ClientCallBack) -> Void)?
+  #### Declaration
     
-    //Properties to use on convenience
-    controller : UIViewController?
-    thirdPartyUrlString : String?
-    msisdn : String?
-    title : String?
-    album : String?
-    artist : String?
-    contentID : String?
-    contentLanguage : String?
-    contentType : String?
-    imageURL : String?
-    previewStreamURL : String?
-    displayDownloadCount : String?
-    name : String?
-    subscriptionPrice : String?
-    currency : String?
-    validity : String?
-    isAutoRenewalPack : Bool?
- ```
- 
- ###### Details of `ClientCallBack` 
- ```
-    success - Client Callback type to communicate with sdk when it is success
-    fail - Client Callback type to communicate with sdk when it is failed
-    cancel - Client Callback type to communicate with sdk when it is cancelled
- ```
- 
- #### 3. Handle the callback observer event with the help of `OnMobileRBTConnectorEventListener` 
- 
- ##### Summary
- Provides `OnMobileRBTConnectorEventListener` details to handle the actions with the respective object
- 
- ##### Implementation
- Need to access this object only from the saved object of `OnMobileRBTConnectorResponse`
- 
- ```swift
-  let listenerType = onMobileRBTConnectorResponse?.eventListener.type
-  let event = onMobileRBTConnectorResponse?.eventListener.event
- ```
+    @objc static func contentAvailability(
+                    for isrcs: [String], 
+                    succedded success: @escaping (([IsrcItem]) -> ()), 
+                    failed fail: @escaping ((OnMobileRBTError) -> ())
+                    )
+                    
+  #### Parameters
   
- ##### Declaration and details of `OnMobileRBTConnectorEventListener` parameters
- ```swift
-  var type: OnMobileRBTConnectorEventListenerType?
-  var event: (String, [String : Any])?
+  ```
+  - isrcs : Provide the list of ISRC codes to check the availability
+  - success : Provides the successfull callback with list of IsrcItem object
+  - fail : Provides the error callback with OnMobileRBTError object to handle the errors
+  ```
+  
+  ### Setup for Transactions
+  
+  #### Summary
+  
+    Setup the user to forward with the transactions.
+  
+  #### Declaration
+    
+    @objc static func setup(
+                    forPhoneNumber number: String, 
+                    andPhoneNumbers phoneNumbers: [String]? = nil, 
+                    withLanguageCode languageCode: String? = nil, 
+                    controller: UIViewController, 
+                    listener selector: Selector? = nil, 
+                    eventListener eventSelector: Selector? = nil, 
+                    succedded success: @escaping ((OnMobileRBTConnectorResponse) -> ()), 
+                    failed fail: @escaping ((OnMobileRBTError) -> ())
+                    )
+
+
+  #### Parameters
+
+```
+- number : Provide appropriate number to setup user to use the OnMobileRBTSDK
+- phoneNumbers : Provide array of numbers to support multiple numbers in OnMobileRBTSDK (check with organization wheter it supports to you or not)
+- languageCode : Provide the language code to dispay the content in appropriate language (Take the code from organization)
+- controller : Provide the controller, on which the OnMobileRBTSDK listeners needs to be handled
+- selector : Provide the selector to handle the listeners
+- eventSelector : Provide the selector to handle the event listeners
+- success : Provides the successfull callback with  OnMobileRBTConnectorResponse   object to use for further transactions
+- fail : Provides the error callback with OnMobileRBTError object to handle the errors
+```
+
+  #### Note
+  
+    Save the response object `OnMobileRBTConnectorResponse` for further transactions, pl ease call the below methods on this object
+    
+  ### Preview and Set RBT
+  
+  #### Summary
+  
+    Launches the OnMobileRBTSDK Preview UI for the provided ISRC code to set it as RBT (Use the saved instance object `OnMobileRBTConnectorResponse` to call this method
+  
+  #### Declaration
+  
+    @objc func previewAndSetRBT(
+                for isrc: String, 
+                on controller: UIViewController, 
+                animated: Bool, 
+                failed fail: @escaping ((OnMobileRBTError) -> ())
+                )
+
+  #### Parameters
+
  ```
- 
- ##### Details of `OnMobileRBTConnectorEventListenerType` 
- ```
-  sdkOpen - Listener type sent when sdk UI open
-  sdkClose - Listener type sent when sdk UI close
-  event - Listener type for event
+  - isrc : Provde theISRC code to preview and set
+  - controller : Provide the controller, on which the OnMobileRBTSDK preview UI to be shown
+  - animated : true / false
+  - fail : Provides the error callback OnMobileRBTError object to handle the errors
  ```
 
 ## Dependencies
@@ -258,11 +209,10 @@ import OnMobileRBTSDK
   'CryptoSwift', '1.4.0'
   'ISPageControl', '0.1.0'
   'SDWebImage', '5.1.1'
-  'SwiftDate', '6.0.3'
   'TrustKit', '1.5.3'
   'youtube-ios-player-helper', '0.1.6'
   ```
 
 ## Copyright
 
-### ©2021 OnMobile Global Limited All Rights Reserved.
+### ©2022 OnMobile Global Limited All Rights Reserved.
