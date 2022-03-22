@@ -2,7 +2,7 @@
 
 # OnMobile RBT SDK
 
-#### Prior Note: `For the versions earlier to 3.0.16 please refer the document` [here](https://github.com/ONMO/OnMobileRBT/blob/master/README-v3.0.15.md)
+#### Prior Note: Please refer earlier documents at [3.0.15](https://github.com/ONMO/OnMobileRBT/blob/master/README-v3.0.15.md) & [3.0.16](https://github.com/ONMO/OnMobileRBT/blob/master/README-v3.0.16.md) 
 
 - [Introduction](#introduction)
   - [Purpose](#purpose)
@@ -14,6 +14,7 @@
   - [Initialize OnMobile RBT SDK](#initialize-onmobile-rbt-sdk)
   - [Check content availability](#check-content-availability)
   - [Setup for Transactions](#setup-for-transactions)
+  - [Launch UI](#launch-ui)
   - [Preview and Set RBT](#preview-and-set-rbt)
 - [Dependencies](#dependencies)
 - [Copyright](#copyright)
@@ -39,7 +40,7 @@ $ sudo gem install cocoapods
   To integrate OnMobile RBT SDK into your Xcode project using CocoaPods(Use the version number provided to you), specify it in your `Podfile`:
 
 ```ruby
-pod 'OnMobileRBTSDK', '3.0.16'
+pod 'OnMobileRBTSDK', '3.0.17'
 ```
 
   Then, run the following command on your project path:
@@ -109,10 +110,10 @@ import OnMobileRBTSDK
  #### Parameters
 
 ```
-- authKey : Provide the OnMobileRBTSDK authentication key shared by organization to intialize
-- clientKey : Provide the Client key shared by organization to intialize
-- success : Povides a successfull callback after initializtion
-- fail : Provides the error callback with OnMobileRBTError object to handle the errors
+  - authKey : Provide the OnMobileRBTSDK authentication key shared by organization to intialize
+  - clientKey : Provide the Client key shared by organization to intialize
+  - success : Povides a successfull callback after initializtion
+  - fail : Provides the error callback with OnMobileRBTError object to handle the errors
   ```
   
   #### Implementation
@@ -145,9 +146,9 @@ import OnMobileRBTSDK
   #### Parameters
   
   ```
-  - isrcs : Provide the list of ISRC codes to check the availability
-  - success : Provides the successfull callback with list of IsrcItem object
-  - fail : Provides the error callback with OnMobileRBTError object to handle the errors
+    - isrcs : Provide the list of ISRC codes to check the availability
+    - success : Provides the successfull callback with list of IsrcItem object
+    - fail : Provides the error callback with OnMobileRBTError object to handle the errors
   ```
   
   #### Implementation
@@ -171,35 +172,36 @@ import OnMobileRBTSDK
   #### Declaration
     
     @objc static func setup(
-                    forPhoneNumber number: String, 
-                    andPhoneNumbers phoneNumbers: [String]? = nil, 
-                    withLanguageCode languageCode: String? = nil, 
-                    controller: UIViewController, 
-                    listener selector: Selector? = nil, 
-                    eventListener eventSelector: Selector? = nil, 
-                    succedded success: @escaping ((OnMobileRBTConnectorResponse) -> ()), 
-                    failed fail: @escaping ((OnMobileRBTError) -> ())
-                    )
-
+                        forPhoneNumber number: OnMobileRBTMSISDNDetail,
+                        andPhoneNumbers phoneNumbers: [OnMobileRBTMSISDNDetail] = [],
+                        withLanguageCode languageCode: String? = nil,
+                        controller: UIViewController,
+                        listener selector: Selector? = nil,
+                        eventListener eventSelector: Selector? = nil,
+                        succedded success: @escaping ((OnMobileRBTConnectorResponse) -> ()),
+                        failed fail: @escaping ((OnMobileRBTError) -> ()))
 
   #### Parameters
 
 ```
-- number : Provide appropriate number to setup user to use the OnMobileRBTSDK
-- phoneNumbers : Provide array of numbers to support multiple numbers in OnMobileRBTSDK (check with organization wheter it supports to you or not)
-- languageCode : Provide the language code to dispay the content in appropriate language (Take the code from organization)
-- controller : Provide the controller, on which the OnMobileRBTSDK listeners needs to be handled
-- selector : Provide the selector to handle the listeners
-- eventSelector : Provide the selector to handle the event listeners
-- success : Provides the successfull callback with  OnMobileRBTConnectorResponse   object to use for further transactions
-- fail : Provides the error callback with OnMobileRBTError object to handle the errors
+  - number: Provide appropriate `OnMobileRBTMSISDNDetail` object to setup user to use the `OnMobileRBTSDK` with the msisdn & customerId if any
+  - phoneNumbers: Provide array of numbers along with customerId's if any to support multiple numbers in `OnMobileRBTSDK` (check with organization wheter it supports not)
+  - languageCode: Provide the language code to dispay the content in appropriate language (Take the code from organization)
+  - controller: Provide the controller, on which the `OnMobileRBTSDK` listeners needs to be handled
+  - selector: Provide the selector to handle the listeners
+  - eventSelector: Provide the selector to handle the event listeners
+  - success: Provides the successfull  callback with `OnMobileRBTConnectorResponse` object to use for further transactions
+  - fail: Provides the error callback with `OnMobileRBTError` object to handle the errors
 ```
 
   #### Implementation
   
     OnMobileRBTConnector.setup(
-                forPhoneNumber: "<Phonenumber>",
-                andPhoneNumbers: nil,
+                forPhoneNumber: OnMobileRBTMSISDNDetail.init("<phone number>", customerId: "<customer id if any>"),
+                andPhoneNumbers: [
+                            OnMobileRBTMSISDNDetail.init("<phone number1>", customerId: "<customer id1 if any>"),
+                            OnMobileRBTMSISDNDetail.init("<phone number2>", customerId: "<customer id2 if any>")
+                      ],
                 withLanguageCode: nil,
                 controller: self,
                 listener: nil,
@@ -220,7 +222,38 @@ import OnMobileRBTSDK
     Save the response object `OnMobileRBTConnectorResponse` for further transactions, 
     please call the below methods on this object
     
-  ### Preview and Set RBT
+  ### Launch UI
+  
+  #### Summary
+  
+    Launches the OnMobileRBTSDK UI
+    (Use the saved instance object `OnMobileRBTConnectorResponse` to call this method)
+  
+  #### Declaration
+  
+    @objc func launch(
+                  on controller: UIViewController, 
+                  animated: Bool, 
+                  failed fail: @escaping ((OnMobileRBTError) -> ()))
+
+  #### Parameters
+
+ ```
+  - controller: Provide the controller, on which the `OnMobileRBTSDK` app to be launched
+  - animated: `true / false`
+  - fail: Provides the error callback `OnMobileRBTError` object to handle the errors
+ ```
+ 
+  #### Implementation
+  
+    self.onMobileRBTConnectorResponse?.launch(
+            on: self, 
+            animated: true, 
+            failed: { (error) in
+                /*Failure call back code*/
+        })
+
+ ### Preview and Set RBT
   
   #### Summary
   
@@ -254,17 +287,17 @@ import OnMobileRBTSDK
                failed: { (error) in
                    /*Failure call back code*/
                })
-
+               
 ## Dependencies
   
   ##### Other frameworks or libraries used and version details
   ```
-  'Alamofire', '4.9.0'
-  'CryptoSwift', '1.4.0'
-  'ISPageControl', '0.1.0'
-  'SDWebImage', '5.1.1'
-  'TrustKit', '1.5.3'
-  'youtube-ios-player-helper', '0.1.6'
+    'Alamofire', '4.9.0'
+    'CryptoSwift', '1.4.0'
+    'ISPageControl', '0.1.0'
+    'SDWebImage', '5.1.1'
+    'TrustKit', '1.5.3'
+    'youtube-ios-player-helper', '0.1.6'
   ```
   
   ##### iOS Support is form 10.0+
