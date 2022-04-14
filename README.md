@@ -165,6 +165,36 @@ import OnMobileRBTSDK
   
   ### Setup for Transactions
   
+  #### Preparation of `OnMobileRBTClientDetail` object to pass in the `setup` method
+  
+  Declaration
+    
+    init(_ msisdn: OnMobileRBTMSISDNDetail,
+        otherMsisdns msisdns: [OnMobileRBTMSISDNDetail] = [],
+        languageCode language: String? = nil,
+        accountCode account: String? = nil,
+        customerType customer: String? = nil,
+        segment: String? = nil)
+    
+   Parameters
+    
+    - msisdn: Provide appropriate `OnMobileRBTMSISDNDetail` object to setup user to use the `OnMobileRBTSDK` with the msisdn & customerId if any
+    - msisdns: Provide array of numbers along with customerId's if any to support multiple numbers in `OnMobileRBTSDK` (check with organization wheter it supports not)
+    - language: Provide the language code to dispay the content in appropriate language (Take the code from organization)
+    - account: Provide the account code if any
+    - customer: Provide the customer type if any
+    - segment: Provide the segment if any
+
+  Implementation
+  
+    let onMobileRBTClientDetail = OnMobileRBTClientDetail(<`OnMobileRBTMSISDNDetail` object>,
+                                                       otherMsisdns: <Array of `OnMobileRBTMSISDNDetail` objects>,
+                                                       languageCode: languageCode,
+                                                       accountCode: accountCode,
+                                                       customerType: customerType,
+                                                       segment: segment)
+
+  
   #### Summary
   
     Setup the user to forward with the transactions.
@@ -172,9 +202,7 @@ import OnMobileRBTSDK
   #### Declaration
     
     @objc static func setup(
-                        forPhoneNumber number: OnMobileRBTMSISDNDetail,
-                        andPhoneNumbers phoneNumbers: [OnMobileRBTMSISDNDetail] = [],
-                        withLanguageCode languageCode: String? = nil,
+                        withOnMobileRBTClientDetail: OnMobileRBTClientDetail,
                         controller: UIViewController,
                         listener selector: Selector? = nil,
                         eventListener eventSelector: Selector? = nil,
@@ -184,9 +212,7 @@ import OnMobileRBTSDK
   #### Parameters
 
 ```
-  - number: Provide appropriate `OnMobileRBTMSISDNDetail` object to setup user to use the `OnMobileRBTSDK` with the msisdn & customerId if any
-  - phoneNumbers: Provide array of numbers along with customerId's if any to support multiple numbers in `OnMobileRBTSDK` (check with organization wheter it supports not)
-  - languageCode: Provide the language code to dispay the content in appropriate language (Take the code from organization)
+  - client: Provide appropriate `OnMobileRBTClientDetail` object to setup user to use the `OnMobileRBTSDK`
   - controller: Provide the controller, on which the `OnMobileRBTSDK` listeners needs to be handled
   - selector: Provide the selector to handle the listeners
   - eventSelector: Provide the selector to handle the event listeners
@@ -197,12 +223,7 @@ import OnMobileRBTSDK
   #### Implementation
   
     OnMobileRBTConnector.setup(
-                forPhoneNumber: OnMobileRBTMSISDNDetail.init("<phone number>", customerId: "<customer id if any>"),
-                andPhoneNumbers: [
-                            OnMobileRBTMSISDNDetail.init("<phone number1>", customerId: "<customer id1 if any>"),
-                            OnMobileRBTMSISDNDetail.init("<phone number2>", customerId: "<customer id2 if any>")
-                      ],
-                withLanguageCode: nil,
+                withOnMobileRBTClientDetail: <onMobileRBTClientDetail of type `OnMobileRBTClientDetail`>,
                 controller: self,
                 listener: nil,
                 eventListener: nil,
@@ -292,12 +313,12 @@ import OnMobileRBTSDK
   
   ##### Other frameworks or libraries used and version details
   ```
-    'Alamofire', '4.9.0'
-    'CryptoSwift', '1.4.0'
+    'Alamofire', '5.5.0'
+    'CryptoSwift', '1.4.3'
     'ISPageControl', '0.1.0'
-    'SDWebImage', '5.1.1'
-    'TrustKit', '1.5.3'
-    'youtube-ios-player-helper', '0.1.6'
+    'SDWebImage', '5.12.5'
+    'TrustKit', '1.6.5'
+    'youtube-ios-player-helper', '1.0.4'
   ```
   
   ##### iOS Support is form 10.0+
