@@ -2,7 +2,7 @@
 
 # OnMobile RBT SDK
 
-#### Prior Note: Please refer earlier documents at [3.0.15](https://github.com/ONMO/OnMobileRBT/blob/master/README-v3.0.15.md) & [3.0.16](https://github.com/ONMO/OnMobileRBT/blob/master/README-v3.0.16.md) 
+#### Prior Note: Please refer earlier documents at [3.0.16](https://github.com/ONMO/OnMobileRBT/blob/master/README-v3.0.16.md) & [3.0.15](https://github.com/ONMO/OnMobileRBT/blob/master/README-v3.0.15.md)
 
 - [Introduction](#introduction)
   - [Purpose](#purpose)
