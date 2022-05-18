@@ -2,7 +2,7 @@
 
 # OnMobile RBT SDK
 
-#### Prior Note: Please refer earlier documents at [3.0.17](https://github.com/ONMO/OnMobileRBT/blob/master/README-v3.0.17.md), [3.0.16](https://github.com/ONMO/OnMobileRBT/blob/master/README-v3.0.16.md) & [3.0.15](https://github.com/ONMO/OnMobileRBT/blob/master/README-v3.0.15.md)
+#### Prior Note: Please refer earlier documents at [3.0.19](https://github.com/ONMO/OnMobileRBT/blob/master/README-v3.0.19.md), [3.0.17](https://github.com/ONMO/OnMobileRBT/blob/master/README-v3.0.17.md), [3.0.16](https://github.com/ONMO/OnMobileRBT/blob/master/README-v3.0.16.md) & [3.0.15](https://github.com/ONMO/OnMobileRBT/blob/master/README-v3.0.15.md)
 
 - [Introduction](#introduction)
   - [Purpose](#purpose)
@@ -40,7 +40,7 @@ $ sudo gem install cocoapods
   To integrate OnMobile RBT SDK into your Xcode project using CocoaPods(Use the version number provided to you), specify it in your `Podfile`:
 
 ```ruby
-pod 'OnMobileRBTSDK', '3.0.17'
+pod 'OnMobileRBTSDK/<module_extension_name_shared_by_organization>', '3.1.0'
 ```
 
   Then, run the following command on your project path:
@@ -88,7 +88,7 @@ $ pod install
   ### Import OnMobile RBT SDK
   
   ```swift
-import OnMobileRBTSDK
+import OnMobileRBTSDK_<module_extension_name_shared_by_organization>
 ```
 
   ## SDK Method implementations
@@ -201,21 +201,23 @@ import OnMobileRBTSDK
   
   #### Declaration
     
-    @objc static func setup(
-                        withOnMobileRBTClientDetail: OnMobileRBTClientDetail,
-                        controller: UIViewController,
-                        listener selector: Selector? = nil,
-                        eventListener eventSelector: Selector? = nil,
-                        succedded success: @escaping ((OnMobileRBTConnectorResponse) -> ()),
-                        failed fail: @escaping ((OnMobileRBTError) -> ()))
+    @objc public static func setup(
+        withOnMobileRBTClientDetail client: OnMobileRBTClientDetail,
+        controller: UIViewController,
+        listener selector: Selector? = nil,
+        eventListener eventSelector: Selector? = nil,
+        playerListener playerSelector: Selector? = nil,
+        succedded success: @escaping ((OnMobileRBTConnectorResponse) -> ()),
+        failed fail: @escaping ((OnMobileRBTError) -> ()))
 
   #### Parameters
 
 ```
-  - client: Provide appropriate `OnMobileRBTClientDetail` object to setup user to use the `OnMobileRBTSDK`
+  - client: Provide appropriate `OnMobileRBTMSISDNDetail` object to setup user to use the `OnMobileRBTSDK` with the msisdn & customerId if any
   - controller: Provide the controller, on which the `OnMobileRBTSDK` listeners needs to be handled
   - selector: Provide the selector to handle the listeners
   - eventSelector: Provide the selector to handle the event listeners
+  - playerSelector:Provide the selector to handle the player listeners
   - success: Provides the successfull  callback with `OnMobileRBTConnectorResponse` object to use for further transactions
   - fail: Provides the error callback with `OnMobileRBTError` object to handle the errors
 ```
@@ -227,6 +229,7 @@ import OnMobileRBTSDK
                 controller: self,
                 listener: nil,
                 eventListener: nil,
+                playerListener: nil,
                 succedded: { (response) in
                     /*
                      Success call back code
