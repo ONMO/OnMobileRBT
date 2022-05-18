@@ -23,7 +23,7 @@
 
   ### Purpose
 
-  This document describes systematic guidelines in integrating OnMobile RBT SDK framework along with its dependent libraries/frameworks.This document provides complete guidelines tointegrate OnMobile RBT Framework in iOS project.
+  This document describes systematic guidelines in integrating OnMobile RBT SDK framework along with its dependent libraries/frameworks.This document provides complete guidelines to integrate OnMobile RBT Framework in iOS project.
 
 ## SDK Integration Steps
 
@@ -31,7 +31,7 @@
 
   OnMobile SDK can be integrated to any iOS project through CocoaPods. You can refer [Cocoapods](https://guides.cocoapods.org/using/getting-started.html#getting-started) for more details.
 
-  Command to install CocoaPods (If it is not already installed on your OS X)
+  Command to install CocoaPods (If it is not installed on your OS X)
 
 ```bash
 $ sudo gem install cocoapods
