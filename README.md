@@ -316,8 +316,8 @@ import OnMobileRBTSDK_<module_extension_name_shared_by_organization>
   
   ##### Other frameworks or libraries used and version details
   ```
-    'Alamofire', '5.5.0'
-    'CryptoSwift', '1.4.3'
+    'Alamofire', '5.6.1'
+    'CryptoSwift', '1.5.1'
     'ISPageControl', '0.1.0'
     'SDWebImage', '5.12.5'
     'TrustKit', '1.6.5'
