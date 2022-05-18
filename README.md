@@ -40,7 +40,7 @@ $ sudo gem install cocoapods
   To integrate OnMobile RBT SDK into your Xcode project using CocoaPods(Use the version number provided to you), specify it in your `Podfile`:
 
 ```ruby
-pod 'OnMobileRBTSDK/<module_extension_name_shared_by_organization>', '3.1.0'
+pod 'OnMobileRBTSDK/<module_extension_name_shared_by_organization>', 'x.x.x'
 ```
 
   Then, run the following command on your project path:
