@@ -42,7 +42,7 @@ platform :ios, '9.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-pod 'OnMobileRBTSDK', '3.0.15'
+pod 'OnMobileRBTSDK', 'x.y.z'
 end
 ```
 
