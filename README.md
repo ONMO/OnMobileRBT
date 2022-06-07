@@ -16,7 +16,6 @@
   - [Setup for Transactions](#setup-for-transactions)
   - [Launch UI](#launch-ui)
   - [Preview and Set RBT](#preview-and-set-rbt)
-- [Dependencies](#dependencies)
 - [Copyright](#copyright)
 
 ## Introduction
@@ -165,16 +164,33 @@ import OnMobileRBTSDK_<module_extension_name_shared_by_organization>
   
   ### Setup for Transactions
   
+  #### Preparation of `OnMobileRBTMSISDNDetail` object to pass in the `OnMobileRBTClientDetail` Object
+  
+  Declaration
+    
+    @objc public static func create(msisdn: String,
+                              customerId: String? = "") -> OnMobileRBTMSISDNDetail
+    
+   Parameters
+    
+    - msisdn: Provide appropriate msisdn
+    - customerId: Provide appropriate customerId if any
+
+  Implementation
+  
+    let onMobileRBTMSISDNDetail = OnMobileRBTMSISDNDetail.create(msisdn:<phonenumber>, customerId: <customer id if any>")
+  
+  
   #### Preparation of `OnMobileRBTClientDetail` object to pass in the `setup` method
   
   Declaration
     
-    init(_ msisdn: OnMobileRBTMSISDNDetail,
-        otherMsisdns msisdns: [OnMobileRBTMSISDNDetail] = [],
-        languageCode language: String? = nil,
-        accountCode account: String? = nil,
-        customerType customer: String? = nil,
-        segment: String? = nil)
+    @objc public static func create(msisdn: OnMobileRBTMSISDNDetail,
+                              otherMsisdns msisdns: [OnMobileRBTMSISDNDetail] = [],
+                              languageCode language: String? = nil,
+                              accountCode account: String? = nil,
+                              customerType customer: String? = nil,
+                              segment: String? = nil) -> OnMobileRBTClientDetail
     
    Parameters
     
@@ -187,7 +203,8 @@ import OnMobileRBTSDK_<module_extension_name_shared_by_organization>
 
   Implementation
   
-    let onMobileRBTClientDetail = OnMobileRBTClientDetail(<`OnMobileRBTMSISDNDetail` object>,
+    let onMobileRBTClientDetail = OnMobileRBTClientDetail.create(
+                                                       msisdn: <`OnMobileRBTMSISDNDetail` object>,
                                                        otherMsisdns: <Array of `OnMobileRBTMSISDNDetail` objects>,
                                                        languageCode: languageCode,
                                                        accountCode: accountCode,
@@ -312,17 +329,6 @@ import OnMobileRBTSDK_<module_extension_name_shared_by_organization>
                    /*Failure call back code*/
                })
                
-## Dependencies
-  
-  ##### Other frameworks or libraries used and version details
-  ```
-    'Alamofire', '5.6.1'
-    'CryptoSwift', '1.5.1'
-    'ISPageControl', '0.1.0'
-    'SDWebImage', '5.12.5'
-    'TrustKit', '1.6.5'
-    'youtube-ios-player-helper', '1.0.4'
-  ```
   
   ##### iOS Support is form 10.0+
 
