@@ -16,6 +16,7 @@
   - [Setup for Transactions](#setup-for-transactions)
   - [Launch UI](#launch-ui)
   - [Preview and Set RBT](#preview-and-set-rbt)
+- [Changes in version](#changes-in-version)
 - [Copyright](#copyright)
 
 ## Introduction
@@ -331,6 +332,11 @@ import OnMobileRBTSDK_<module_extension_name_shared_by_organization>
                
   
   ##### iOS Support is form 10.0+
+  
+## Changes in version
+`3.1.1`  
+- Direct denpendency removed
+- OnMobileRBTMSISDNDetail & OnMobileRBTClientDetail object creation changed to static method
 
 ## Copyright
 
