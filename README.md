@@ -23,7 +23,7 @@
 
   ### Purpose
 
-  This document describes systematic guidelines in integrating OnMobile RBT SDK framework along with its dependent libraries/frameworks.This document provides complete guidelines to integrate OnMobile RBT Framework in iOS project.
+  This document describes systematic guidelines in integrating OnMobile RBT SDK framework.This document provides complete guidelines to integrate OnMobile RBT Framework in iOS project.
 
 ## SDK Integration Steps
 
