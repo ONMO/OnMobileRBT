@@ -9,7 +9,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "OnMobileRBT",
-            targets: ["OnMobileRBT", "OnMobileRBTSDK"]),
+            targets: ["OnMobileRBT"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -21,13 +21,13 @@ let package = Package(
         .target(
             name: "OnMobileRBT",
             dependencies: []),
-        .binaryTarget(
-                    name: "OnMobileRBTSDK",
-                    url: "https://github.com/ONMO/OnMobileRBT/releases/download/v3.1.1/OnMobileRBTSDK-v3.1.1.zip",
-                    checksum: "53ae076eaa2439281c1b81d01b3cc15395fb73a089f8b2c5186a86005a11cd70"
-                ),
-        .testTarget(
-            name: "OnMobileRBTTests",
-            dependencies: ["OnMobileRBT"]),
+//        .binaryTarget(
+//                    name: "OnMobileRBTSDK",
+//                    url: "https://github.com/ONMO/OnMobileRBT/releases/download/v3.1.1/OnMobileRBTSDK-v3.1.1.zip",
+//                    checksum: "53ae076eaa2439281c1b81d01b3cc15395fb73a089f8b2c5186a86005a11cd70"
+//                ),
+//        .testTarget(
+//            name: "OnMobileRBTTests",
+//            dependencies: ["OnMobileRBT"]),
     ]
 )
