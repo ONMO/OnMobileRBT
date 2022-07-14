@@ -8,18 +8,21 @@ let package = Package(
     platforms: [.iOS(.v10)],
     products: [
         .library(
-            name: "OnMobileRBTSDK",
+            name: "OnMobileRBTSDK_VIL",
             targets: ["OnMobileRBTSDK_VIL"]),
+        .library(
+            name: "OnMobileRBTSDK_DU",
+            targets: ["OnMobileRBTSDK_DU"]),
     ],
     targets: [
         .binaryTarget(
             name: "OnMobileRBTSDK_VIL",
-            url: "https://github.com/ONMO/OnMobileRBT/releases/download/v3.1.1/OnMobileRBTSDK_VIL.xcframework.zip",
-            checksum: "bbf8197bf9466b5490ac959dfb9d9341b7d7f96ed5ff5fe0fd26d4428eec4f3e"
+            url: "https://github.com/ONMO/OnMobileRBT/releases/download/v3.1.2/OnMobileRBTSDK_VIL.xcframework.zip",
+            checksum: "5f386f9a8fd883585d3defb82bb38fbfd1855853727f053f44151809d21e3c8b"
         ),
-//        .binaryTarget(
-//            name: "OnMobileRBTSDK_VIL",
-//            path: "Build/iOS/OnMobileRBTSDK_VIL.xcframework"
-//        ),
-    ]
+        .binaryTarget(
+            name: "OnMobileRBTSDK_DU",
+            url: "https://github.com/ONMO/OnMobileRBT/releases/download/v3.1.2/OnMobileRBTSDK_DU.xcframework.zip",
+            checksum: "48653af2067d1c6953bc4f3030d02533912e9b4c30c455ba8dc569c021f8fd98"
+        ),    ]
 )
