@@ -8,6 +8,7 @@
   - [Purpose](#purpose)
 - [SDK Integration Steps](#sdk-integration-steps)
   - [CocoaPods](#cocoapods)
+  - [Swift Package Manager](#swift-package-manager)
   - [Update Project Settings](#update-project-settings)
   - [Import OnMobile RBT SDK](#import-onmobile-rbt-sdk)
 - [SDK Method implementations](#sdk-method-implementations)
@@ -67,6 +68,18 @@ Please, do run the below commands:
 $ pod repo update
 $ pod install
 ```
+
+  ### Swift Package Manager
+  
+  OnMobile SDK can be integrated to any iOS project through Swift Package Manger. You can refer [Swift Package Manger](https://swift.org/package-manager/) for more details.
+
+  Once you have your Swift package set up, adding OnMobileRBTSDK as a dependency is as easy as adding it to the dependencies value of your Package.swift.
+  
+  ```bash
+  dependencies: [
+         .package(url: "https://github.com/ONMO/OnMobileRBT.git", exact: "x.x.x"),
+    ]
+  ```
 
   ### Update Project Settings
 
