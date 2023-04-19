@@ -14,8 +14,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "OnMobileRBTSDK_VIL",
-            url: "https://github.com/ONMO/OnMobileRBT/releases/download/v3.1.1/OnMobileRBTSDK_VIL.xcframework.zip",
-            checksum: "bbf8197bf9466b5490ac959dfb9d9341b7d7f96ed5ff5fe0fd26d4428eec4f3e"
+            url: "https://github.com/ONMO/OnMobileRBT/releases/download/v3.1.5/OnMobileRBTSDK_VIL.xcframework.zip",
+            checksum: "9bb569b12b0bd22b36774702b0a5bb715b0e5041c0444a01ee4183ace1219458"
         ),
 //        .binaryTarget(
 //            name: "OnMobileRBTSDK_VIL",
