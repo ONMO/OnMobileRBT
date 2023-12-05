@@ -204,7 +204,8 @@ import OnMobileRBTSDK_<module_extension_name_shared_by_organization>
                               languageCode language: String? = nil,
                               accountCode account: String? = nil,
                               customerType customer: String? = nil,
-                              segment: String? = nil) -> OnMobileRBTClientDetail
+                              segment: String? = nil,
+                              type: ClientType = .normal) -> OnMobileRBTClientDetail
     
    Parameters
     
@@ -214,6 +215,7 @@ import OnMobileRBTSDK_<module_extension_name_shared_by_organization>
     - account: Provide the account code if any
     - customer: Provide the customer type if any
     - segment: Provide the segment if any
+    - type: Provide the client type if any
 
   Implementation
   
@@ -223,7 +225,8 @@ import OnMobileRBTSDK_<module_extension_name_shared_by_organization>
                                                        languageCode: languageCode,
                                                        accountCode: accountCode,
                                                        customerType: customerType,
-                                                       segment: segment)
+                                                       segment: segment,
+                                                       type: type)
 
   
   #### Summary
@@ -281,19 +284,21 @@ import OnMobileRBTSDK_<module_extension_name_shared_by_organization>
   
   #### Summary
   
-    Launches the OnMobileRBTSDK UI
+    Launches the OnMobileRBTSDK (optionally you can provide the deeplink url to launch particular UI)
     (Use the saved instance object `OnMobileRBTConnectorResponse` to call this method)
   
   #### Declaration
   
     @objc func launch(
-                  on controller: UIViewController, 
-                  animated: Bool, 
+                  with url: String? = nil,
+                  on controller: UIViewController,
+                  animated: Bool,
                   failed fail: @escaping ((OnMobileRBTError) -> ()))
 
   #### Parameters
 
  ```
+  - url: Provide the deeplink url, so the sdk will directly launch on to that particular content view
   - controller: Provide the controller, on which the `OnMobileRBTSDK` app to be launched
   - animated: `true / false`
   - fail: Provides the error callback `OnMobileRBTError` object to handle the errors
@@ -302,6 +307,7 @@ import OnMobileRBTSDK_<module_extension_name_shared_by_organization>
   #### Implementation
   
     self.onMobileRBTConnectorResponse?.launch(
+            with: <deeplink url>,
             on: self, 
             animated: true, 
             failed: { (error) in
@@ -353,4 +359,4 @@ import OnMobileRBTSDK_<module_extension_name_shared_by_organization>
 
 ## Copyright
 
-### ©2022 OnMobile Global Limited All Rights Reserved.
+### ©2023 OnMobile Global Limited All Rights Reserved.
