@@ -14,9 +14,13 @@
 - [SDK Method implementations](#sdk-method-implementations)
   - [Initialize OnMobile RBT SDK](#initialize-onmobile-rbt-sdk)
   - [Check content availability](#check-content-availability)
+  - [Fetch content](#fetch-content)
   - [Setup for Transactions](#setup-for-transactions)
   - [Launch UI](#launch-ui)
   - [Preview and Set RBT](#preview-and-set-rbt)
+- [Models](#models)
+  - [OnMobileRBTConnectorContent](#onmobilerbtconnectorcontent)
+  - [ContentType](#contenttype)
 - [Changes in version](#changes-in-version)
 - [Copyright](#copyright)
 
@@ -175,6 +179,46 @@ import OnMobileRBTSDK_<module_extension_name_shared_by_organization>
                        /*Failure call back code*/
                    }
             )
+
+  ### Fetch content
+  
+  #### Summary
+  
+    Fetches and provides the requested type of content
+    - For Music Content it is mandatory to provide the id information in request
+    - For Name Content it is mandatoru to provide the name as id in request
+  
+  #### Declaration
+    
+    @objc public static func content(for type: ContentType,
+                                     with id: String? = nil,
+                                     fromOffset offset: Int = 0,
+                                     withMaxResult max: Int = 16,
+                                     succedded success: @escaping (([OnMobileRBTConnectorContent]) -> ()),
+                                     failed fail: @escaping ((OnMobileRBTError) -> ()))
+                    
+  #### Parameters
+  
+  ```
+    - type: Provide appropriate `ContentType` for which the content data is required
+    - id: Provide the `ID` for music `ContentType` or `Name` for name `ContentType` for other type it can be null
+    - offset: Provide the offset value from which the content is required if there is pagination
+    - max: Provide the max value for which the content length required for each request
+    - success: Provides the successfull  callback with array of`OnMobileRBTConnectorContent` objects
+    - fail: Provides the error callback with `OnMobileRBTError` object to handle the errors
+  ```
+  
+  #### Implementation
+
+  OnMobileRBTConnector.content(
+          for: contentType, 
+          with: multipleIsrcsTextField.text, 
+          fromOffset: 0, 
+          withMaxResult: 8) { (response) in
+                /*Success call back code*/
+            } failed: { (error) in
+                /*Failure call back code*/
+            }
   
   ### Setup for Transactions
   
@@ -351,6 +395,55 @@ import OnMobileRBTSDK_<module_extension_name_shared_by_organization>
                
   
   ##### iOS Support is form 10.0+
+
+## Models
+
+### OnMobileRBTConnectorContent
+
+Provides the response object with the required parameters
+
+#### Parameters
+
+    - Provides the RBT track title name
+    public var title : String?
+    
+    - Provides the RBT track album name
+    public var album : String?
+    
+    - Provides the RBT track artist name
+    public var artist : String?
+    
+    - Provides the RBT identifier
+    public var contentID : String?
+    
+    - Provides  the RBT content language
+    public var contentLanguage : String?
+    
+    - Provides the RBT content type
+    public var contentType : ContentType?
+    
+    - Provides the RBT track artwork image URL
+    public var imageURL : String?
+    
+    - Provides the RBT track preview URL
+    public var previewStreamURL : String?
+    
+    - Provides the RBT track downloads count
+    public var displayDownloadCount : String?
+    
+    - Provides the RBT track name
+    public var name : String?
+
+### ContentType
+
+Provides all the content types available
+
+#### Cases
+
+    - music
+    - trending
+    - name
+    - profile
   
 ## Changes in version
 `3.1.1`  
