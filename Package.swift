@@ -29,33 +29,33 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "OnMobileRBTSDK_PRODUCT",
-            url: "https://github.com/ONMO/OnMobileRBT/releases/download/3.1.14/OnMobileRBTSDK_PRODUCT.xcframework.zip",
-            checksum: "63a3f07fc298b011451f02f45ef87ae9e10f39039e3467d69dc224bda9faa175"
+            url: "https://github.com/ONMO/OnMobileRBT/releases/download/3.1.15/OnMobileRBTSDK_PRODUCT.xcframework.zip",
+            checksum: "fe38103766a326e593539988947774c3c9deb87afdb257029f2f7cc665c1dda7"
         ),
         .binaryTarget(
             name: "OnMobileRBTSDK_VIL",
-            url: "https://github.com/ONMO/OnMobileRBT/releases/download/3.1.14/OnMobileRBTSDK_VIL.xcframework.zip",
-            checksum: "16951b3b911266fda4af90a9d7c14fd7e25437c9ee44207e3796ae75bc440c8e"
+            url: "https://github.com/ONMO/OnMobileRBT/releases/download/3.1.15/OnMobileRBTSDK_VIL.xcframework.zip",
+            checksum: "1ded3693ecdc5843804196d949dfa0628743b40e74397b61c0cdca4d757fc4f4"
         ),
         .binaryTarget(
             name: "OnMobileRBTSDK_MYGP",
-            url: "https://github.com/ONMO/OnMobileRBT/releases/download/3.1.14/OnMobileRBTSDK_MYGP.xcframework.zip",
-            checksum: "4907b1f4684e0f5ba99f267ece3d1667fabc0da61de23e7675ac2ac20c6cf467"
+            url: "https://github.com/ONMO/OnMobileRBT/releases/download/3.1.15/OnMobileRBTSDK_MYGP.xcframework.zip",
+            checksum: "75654ff93adff859984e0b63879d953a18e09f2a3645e3cf56b709a3d813384b"
         ),
         .binaryTarget(
             name: "OnMobileRBTSDK_DU",
-            url: "https://github.com/ONMO/OnMobileRBT/releases/download/3.1.14/OnMobileRBTSDK_DU.xcframework.zip",
-            checksum: "a7d9d0ac39656510ce2f4c87522bf4cf5716456fa6feb6467f8dd6878d1fac23"
+            url: "https://github.com/ONMO/OnMobileRBT/releases/download/3.1.15/OnMobileRBTSDK_DU.xcframework.zip",
+            checksum: "6951fe149241f4d34da439d801bdeaa0ecd1c6554aeadd32613f1189659f5fdb"
         ),
         .binaryTarget(
             name: "OnMobileRBTSDK_ROBI",
-            url: "https://github.com/ONMO/OnMobileRBT/releases/download/3.1.14/OnMobileRBTSDK_ROBI.xcframework.zip",
-            checksum: "4b154eeea3f94d5b7803bf5e462cef95fa1c0f8ff6e70c910385147c2073872c"
+            url: "https://github.com/ONMO/OnMobileRBT/releases/download/3.1.15/OnMobileRBTSDK_ROBI.xcframework.zip",
+            checksum: "ae751ea2ae81a896c2f119a9e6c8da883b553177e718929bebc3399c431c4d28"
         ),
         .binaryTarget(
             name: "OnMobileRBTSDK_AIRTEL",
-            url: "https://github.com/ONMO/OnMobileRBT/releases/download/3.1.14/OnMobileRBTSDK_AIRTEL.xcframework.zip",
-            checksum: "a78e481a5e9699dbe156526feb0f100a8a7c9f8daa748db40c2e1fb8808452a4"
+            url: "https://github.com/ONMO/OnMobileRBT/releases/download/3.1.15/OnMobileRBTSDK_AIRTEL.xcframework.zip",
+            checksum: "9444b97860c13c8ed29d56fc23aeac0b5245afba96029028ee6cb300e62730f9"
         ),
     ]
 )
