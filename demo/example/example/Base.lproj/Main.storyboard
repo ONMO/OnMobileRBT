@@ -23,10 +23,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="pAV-Pn-ZmK">
-                                <rect key="frame" x="162" y="340" width="96" height="194.33333333333337"/>
+                                <rect key="frame" x="162" y="340" width="116.66666666666663" height="245.66666666666674"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FS7-7d-5Rh">
-                                        <rect key="frame" x="0.0" y="0.0" width="96" height="40.333333333333336"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="116.66666666666667" height="40.333333333333336"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
@@ -36,7 +36,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ipt-Sb-7Ae">
-                                        <rect key="frame" x="0.0" y="51.333333333333314" width="96" height="40.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="51.333333333333371" width="116.66666666666667" height="40.333333333333343"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
@@ -46,7 +46,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aKb-5N-yNc">
-                                        <rect key="frame" x="0.0" y="102.66666666666669" width="96" height="40.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="102.66666666666669" width="116.66666666666667" height="40.333333333333343"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
@@ -55,8 +55,18 @@
                                             <action selector="launchSDKUI:" destination="BYZ-38-t0r" eventType="touchUpInside" id="K70-PZ-PgL"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRD-DU-0fK">
+                                        <rect key="frame" x="0.0" y="154" width="116.66666666666667" height="40.333333333333343"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Get Content"/>
+                                        <connections>
+                                            <action selector="getContent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yU3-uQ-rp6"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Vb-Yg-TZ7">
-                                        <rect key="frame" x="0.0" y="154" width="96" height="40.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="205.33333333333337" width="116.66666666666667" height="40.333333333333343"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
@@ -79,6 +89,7 @@
                     </view>
                     <connections>
                         <outlet property="deepLinkButton" destination="5Vb-Yg-TZ7" id="0Vx-8F-WCx"/>
+                        <outlet property="getContentButton" destination="wRD-DU-0fK" id="2Rg-H0-RGn"/>
                         <outlet property="initializeButton" destination="FS7-7d-5Rh" id="3sP-n9-kiS"/>
                         <outlet property="launchButton" destination="aKb-5N-yNc" id="604-Ie-bNJ"/>
                         <outlet property="setupButton" destination="Ipt-Sb-7Ae" id="DvS-ME-zRR"/>

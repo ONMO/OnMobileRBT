@@ -7,16 +7,27 @@
 
 import UIKit
 
-
 class ViewController: UIViewController {
     
     let _authKey = ""
     let _clientKey = ""
     let _phoneNumber = ""
     let _languageCode = "en"
+    
+    /*
+     Sample's :
+     Profile Card -> "https://www.onmobile.com/content?type=card&sub_type=profile_tunes&source=Deeplink"
+     Chart -> "https://www.onmobile.com/content?type=chart&id=2015&label=Top&source=Deeplink"
+     Ringback -> "https://www.onmobile.com/content?type=ringback&id=49760663&source=Deeplink"
+     */
     var deeplinkURLString: String?
+    /*
+     Sample Music ID : "2015"
+     */
+    let getContentID = ""
     
     var onMobileRBTConnectorResponse: OnMobileRBTConnectorResponse?
+    var onMobileRBTConnectorContents: [OnMobileRBTConnectorContent]? = []
     
     var msisdnDetail: OnMobileRBTMSISDNDetail? {
         return OnMobileRBTMSISDNDetail.create(msisdn: _phoneNumber)
@@ -25,6 +36,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var initializeButton: UIButton!
     @IBOutlet weak var setupButton: UIButton!
     @IBOutlet weak var launchButton: UIButton!
+    @IBOutlet weak var getContentButton: UIButton!
     @IBOutlet weak var deepLinkButton: UIButton!
     
     override func viewDidLoad() {
@@ -32,6 +44,7 @@ class ViewController: UIViewController {
         initializeButton.isHidden = false
         setupButton.isHidden = true
         launchButton.isHidden = true
+        getContentButton.isHidden = true
         deepLinkButton.isHidden = true
     }
     
@@ -47,13 +60,27 @@ class ViewController: UIViewController {
         launch()
     }
     
+    @IBAction func getContent(_ sender: Any) {
+        getContentList()
+    }
+    
     @IBAction func openDeepLinkURL(_ sender: Any) {
         openDeepLink()
     }
     
+    func getContentList() {
+        OnMobileRBTConnector.content(for: .music, with: getContentID, fromOffset: 0, withMaxResult: 8) { response in
+            self.onMobileRBTConnectorContents = response
+            self.onMobileRBTConnectorContents?.forEach({ (content) in
+                print("Content : \(String(describing: content.contentID)) - \(String(describing: content.title))")
+            })
+        } failed: { (error) in
+            print(error.message)
+        }
+    }
+    
     func openDeepLink() {
-        let url = deeplinkURLString ?? ""
-        self.onMobileRBTConnectorResponse?.launch(with: url, on: self, animated: true, failed: { (error) in
+        self.onMobileRBTConnectorResponse?.launch(with: deeplinkURLString, on: self, animated: true, failed: { (error) in
             print(error.message)
         })
     }
@@ -84,6 +111,7 @@ class ViewController: UIViewController {
                                    succedded: { (response) in
             self.onMobileRBTConnectorResponse = response
             self.setupButton.isHidden = true
+            self.getContentButton.isHidden = false
             self.launchButton.isHidden = false
             self.deepLinkButton.isHidden = false
         }, failed: { (error) in
