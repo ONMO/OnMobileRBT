@@ -13,17 +13,7 @@ class ViewController: UIViewController {
     let _clientKey = ""
     let _phoneNumber = ""
     let _languageCode = "en"
-    
-    /*
-     Sample's :
-     Profile Card -> "https://www.onmobile.com/content?type=card&sub_type=profile_tunes&source=Deeplink"
-     Chart -> "https://www.onmobile.com/content?type=chart&id=2015&label=Top&source=Deeplink"
-     Ringback -> "https://www.onmobile.com/content?type=ringback&id=49760663&source=Deeplink"
-     */
     var deeplinkURLString: String?
-    /*
-     Sample Music ID : "2015"
-     */
     let getContentID = ""
     
     var onMobileRBTConnectorResponse: OnMobileRBTConnectorResponse?
