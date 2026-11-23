@@ -17,13 +17,13 @@ let package = Package(
     targets: [
         .binaryTarget(
                     name: "OnMobileRBTSDK_ROBI",
-                    url: "https://github.com/ONMO/OnMobileRBT/releases/download/3.1.21/OnMobileRBTSDK_ROBI.xcframework.zip",
-                    checksum: "0cb8a96dcedc051b692d377dd8b45e4f2dae591ecfe23dbc7605823f678d4234"
+                    url: "https://github.com/ONMO/OnMobileRBT/releases/download/3.1.22-beta.1/OnMobileRBTSDK_ROBI.xcframework.zip",
+                    checksum: "0c04e0f4c01aee620c15dfefded8e02beb7bcceb1510e94281d0a18a4bb09e9d"
                 ),
                 .binaryTarget(
                     name: "OnMobileRBTSDK_AIRTEL",
-                    url: "https://github.com/ONMO/OnMobileRBT/releases/download/3.1.21/OnMobileRBTSDK_AIRTEL.xcframework.zip",
-                    checksum: "e1b7e235d9036ce2ba4b7ce9f1a9f2075ad6c892c8dc4a06a745ea7a5fcbee5b"
+                    url: "https://github.com/ONMO/OnMobileRBT/releases/download/3.1.22-beta.1/OnMobileRBTSDK_AIRTEL.xcframework.zip",
+                    checksum: "3d911692f2c20a86cb3fcce45b8d50276559743858881234afe1a25db62b6ea4"
                 )
     ]
 )
